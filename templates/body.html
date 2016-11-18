@@ -12,15 +12,18 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="/">CS Capstone Marketplace</a>
+				<!--<a class="navbar-brand" href="{% url 'project:Projects' %}">CS Capstone Marketplace</a>-->
+				<!--<a class="navbar-brand" href="{% url 'project:Projects' %}">CS Capstone Marketplace</a>-->
+				<a class="navbar-brand" href="{% url 'CSCap:Welcome' %}">CS Capstone Marketplace</a>
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
 				{% if user.is_authenticated == False %}
-					<li><a href="/login">Login</a></li>
+					<!--<li><a href="{% url 'auth:Login' %">Login</a></li>-->
+					<li><a href="{% url 'auth:Login' %}">Login</a></li>
 					<li><a href="{% url 'auth:Register' %}">Register</a></li>
 				{% else %}
-					<li><a href="/update">Update Profile</a></li>
+					<li><a href="{% url 'auth:UpdateProfile' %}">Update Profile</a></li>
 					<li role="presentation" class="dropdown">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
 						  Groups/Organizations <span class="caret"></span>
@@ -39,6 +42,16 @@
 							<li><a href="/company/form">Create Company</a></li>
 							<li><a href="/university/form">Create University</a></li>
 							<li><a href="/group/form">Create Group</a></li>
+						</ul>
+					</li>
+					<li role="presentation" class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+						  Projects <span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<!--<li><a href="/company/form">View Projects</a></li>-->
+							<li><a href="{% url 'project:Projects' %}">View Projects</a></li>
+							<li><a href="{% url 'project:AddProject' %}">Create Project</a></li>
 						</ul>
 					</li>
 					<li><a href="{%url 'auth:Logout' %}">Logout</a></li>
