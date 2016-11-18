@@ -19,5 +19,10 @@ urlpatterns = [
     url(r'^', include('CompaniesApp.urls')),
     url(r'^', include('GroupsApp.urls')),
 	url(r'^', include('UniversitiesApp.urls')),
+<<<<<<< HEAD
+    url(r'^', include('CommentsApp.urls')),
+    url(r'^', include('TeacherApp.urls')),
+=======
 
+>>>>>>> master
 ]
