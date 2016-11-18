@@ -17,7 +17,8 @@
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
 				{% if user.is_authenticated == False %}
-					<li><a href="{% url 'auth:Login' %">Login</a></li>
+					<!--<li><a href="{% url 'auth:Login' %">Login</a></li>-->
+					<li><a href="{% url 'auth:Login' %}">Login</a></li>
 					<li><a href="{% url 'auth:Register' %}">Register</a></li>
 				{% else %}
 					<li><a href="{% url 'auth:UpdateProfile' %}">Update Profile</a></li>
