@@ -39,8 +39,10 @@ def addProject(request):
 
 				return redirect('project:Projects')
 		else:
-			print("asdas")
-			return redirect('project:Projects')
+			#print("asdas")
+			return render(request, 'addproject.html', {
+				'form': form_class
+			})
 
 	#this person is not even
 	else:
