@@ -53,7 +53,7 @@ class UpdateForm(forms.ModelForm):
 
     class Meta:
         model = MyUser        
-        fields = ('email', 'password', 'first_name', 'last_name',
+        fields = ('email', 'first_name', 'last_name',
             'is_student', 'is_professor', 'is_engineer')
 
     def clean_password(self):            
