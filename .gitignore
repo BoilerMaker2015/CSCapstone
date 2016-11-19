@@ -8,8 +8,12 @@ __pycache__/
 
 .DS_Store
 
-#idea folder
-.idea
+
+
+#folder
+
+.idea*
+
 
 # Distribution / packaging
 .Python

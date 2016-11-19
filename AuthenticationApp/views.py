@@ -6,7 +6,7 @@ Created by Naman Patwari on 10/4/2016.
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.contrib import messages
 
 
@@ -16,6 +16,7 @@ from .models import MyUser
 # Auth Views
 
 def auth_login(request):
+	#print("i am in authlogin")
 	form = LoginForm(request.POST or None)
 	next_url = request.GET.get('next')
 	if next_url is None:
@@ -27,7 +28,10 @@ def auth_login(request):
 		if user is not None:
 			messages.success(request, 'Success! Welcome, '+(user.first_name or ""))
 			login(request, user)
-			return HttpResponseRedirect(next_url)
+			return render(request,'body.html')
+			#return HttpResponseRedirect('project:Projects')
+			#return HttpResponseRedirect(next_url)
+			#redirect('project:Projects')
 		else:
 			messages.warning(request, 'Invalid username or password.')
 			
@@ -42,7 +46,8 @@ def auth_login(request):
 def auth_logout(request):
 	logout(request)
 	messages.success(request, 'Success, you are now logged out')
-	return render(request, 'index.html')
+	#return render(request, 'index.html')
+	return render(request, 'auth_form.html')
 
 def auth_register(request):
 	if request.user.is_authenticated():
@@ -58,7 +63,8 @@ def auth_register(request):
 		new_user.save()	
 		login(request, new_user);	
 		messages.success(request, 'Success! Your account was created.')
-		return render(request, 'index.html')
+		return render(request, 'body.html')
+		#return redirect('body.html')
 
 	context = {
 		"form": form,
