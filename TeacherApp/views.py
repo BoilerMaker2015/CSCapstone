@@ -8,7 +8,7 @@ def index(request) :
     context = {
         'teachers': teachers_list,
     }
-    return render(request, 'teacher.html', context)
+    return render(request, 'teacherIndex.html', context)
 
 def getTeacherForm(request):
     return render(request, 'teacherForm.html')
@@ -24,9 +24,9 @@ def submitTeacher(request):
             new_teacher.phone = form.cleaned_data['phone']
             new_teacher.save()
             teachers_list = models.Teacher.objects.all()
-            print("first_name" + new_teacher.first_name + ", last_name : " + new_teacher.last_name)
-            print("teatcher_list[0]: " + teachers_list[0].first_name)
-            print("teatcher_list[1]: " + teachers_list[1].first_name)
+            #print("first_name" + new_teacher.first_name + ", last_name : " + new_teacher.last_name)
+            #print("teatcher_list[0]: " + teachers_list[0].first_name)
+            #print("teatcher_list[1]: " + teachers_list[1].first_name)
 
             context = {
                 'teachers' : teachers_list,
