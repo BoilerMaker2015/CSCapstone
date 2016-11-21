@@ -10,6 +10,7 @@ app_name = 'project'
 
 urlpatterns = [
     url(r'^project/all$', views.getProjects, name='Projects'),
-    url(r'^project$', views.getProject, name='Project'),
-    url(r'^addproject$', views.addProject, name='AddProject'),
+    #url(r'^project$', views.getProject, name='Project'),
+    url(r'^project/projectForm$', views.getProjectForm, name='ProjectForm'),
+    url(r'^project/submitProject$', views.addProject, name='submitProject'),
 ]

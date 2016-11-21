@@ -61,7 +61,7 @@ def auth_register(request):
     		is_student=form.cleaned_data['student'], is_professor=form.cleaned_data['professor'], 
     		is_engineer=form.cleaned_data['engineer'])
 		new_user.save()	
-		login(request, new_user);	
+		login(request, new_user)
 		messages.success(request, 'Success! Your account was created.')
 		return render(request, 'body.html')
 		#return redirect('body.html')

@@ -1,22 +1,33 @@
 {% extends "body.html" %}
 
 {% block content %}
-	
+
 	<!-- Content -->
 	<div class="container" role="main">
 		<div class="table-responsive">
 			<table class="table table-striped sortable">
 				<thead>
-					<tr>
-						<th>Project Name</th>
-						<th>Project Description</th>
-					</tr>
+                    <tr>
+                        <th> Project Title </th>
+						<th> Project Description</th>
+                        <th>Creator</th>
+                        <th>Language</th>
+                        <th>Assigned</th>
+                        <th>Progress</th>
+                        <th>Assigned Group</th>
+                    </tr>
 				</thead>
 				<tbody>
 					{% for project in projects %}
 					<tr>
-						<td>{{ project.name }}</td>
+						<td>{{ project.title }}</td>
 						<td>{{ project.description }}</td>
+                        <td>{{ project.creator }}</td>
+                        <td>{{ project.language }}</td>
+                        <td>{{ project.assigned }}</td>
+                        <td>{{ project.progress }}</td>
+                        <td>{{ project.assigned_group }}</td>
+
 					</tr>
 					{% endfor %}
 				</tbody>
