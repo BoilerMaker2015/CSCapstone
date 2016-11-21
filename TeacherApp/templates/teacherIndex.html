@@ -16,8 +16,8 @@
         -->
 
             <li><a href="{% url 'index' %}"> View Students</a></li>
-            <li><a href= "{% url 'ProjectsApp:Projects' %}"> View Projects</a></li>
-
+            <li><a href= "{% url 'project:Projects' %}"> View Projects</a></li>
+            <li><a href="{%  url 'auth:Logout' %}">Log Out </a></li>
 
     </ul>
 {%  endblock %}

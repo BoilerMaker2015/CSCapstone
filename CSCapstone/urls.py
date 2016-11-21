@@ -15,7 +15,7 @@ urlpatterns = [
 	url(r'^auth/', include('AuthenticationApp.urls')),
 	url(r'^comment/', include('CommentsApp.urls')),
 	url(r'^', include('CSCapstoneApp.urls')),
-	url(r'^', include('ProjectsApp.urls', namespace="ProjectsApp")),
+	url(r'^', include('ProjectsApp.urls')), #add the second argument for include(), namespace="ProjectsApp"
     url(r'^', include('CompaniesApp.urls')),
     url(r'^', include('GroupsApp.urls')),
 	url(r'^', include('UniversitiesApp.urls')),
