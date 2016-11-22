@@ -15,13 +15,13 @@ urlpatterns = [
 	url(r'^auth/', include('AuthenticationApp.urls')),
 	url(r'^comment/', include('CommentsApp.urls')),
 	url(r'^', include('CSCapstoneApp.urls')),
-	url(r'^', include('ProjectsApp.urls')), #add the second argument for include(), namespace="ProjectsApp"
+	url(r'^', include('ProjectsApp.urls')), # either adding the second argument for include(), namespace="ProjectsApp" or add app_name='ProjectsApp' in ProjectsApp/urls.py, can solve unregistered namespace problem.
     url(r'^', include('CompaniesApp.urls')),
     url(r'^', include('GroupsApp.urls')),
 	url(r'^', include('UniversitiesApp.urls')),
 
     url(r'^', include('CommentsApp.urls')),
     url(r'^', include('TeacherApp.urls')),
-	#url(r'^', include('EngineerApp.urls')),
+	url(r'^', include('EngineerApp.urls')),
 
 ]

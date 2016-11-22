@@ -11,40 +11,32 @@ from .models import Project
 from .forms import ProjectForm
 def getProjects(request):
 	projects_list = models.Project.objects.all()
-	print('I am in getProjects')
 	return render(request, 'projects.html',
 				  {'projects': projects_list})
 
-def getProjectForm(request):
-	form = ProjectForm
-	return render(request, 'ProjectForm.html', {"form": form})
 
+# when user get projectForm, it will go to request.method else branch. when user submit the project Form, it will go to request.method the first branch.
 def addProject(request):
 	form_class = ProjectForm
 
-	user_status = request.user.is_teacher
-	if user_status == True:
-		if request.method == 'POST':
-			form = form_class(data=request.POST)
-			#form = form
-			if form.is_valid():
-				#print("i am here")
-				#name = request.POST.get('name')
-				#description = request.POST.get('description')
-				#time = timezone.now()
+	#user_status = request.user.is_engineer
+	#if user_status == True:
 
-				#new_project = Project(name=name,description=description,created_at=time,updated_at=time)
-				#new_project.save()
-				form.save()
-				return redirect('ProjectApp:Projects')
-		else:
-			#print("asdas")
-			return render(request, 'ProjectForm.html', {
-				'form': form_class
-			})
+	if request.method == 'POST':   #when user submit the project Form
+		form = form_class(data=request.POST)
+		if form.is_valid():
+
+			form.save()
+			return redirect('project:Projects')
+
+	else:  # when user want to get the project Form
+
+		return render(request, 'ProjectForm.html', {
+			'form': form_class
+		})
 
 	#this person is not even
-	else:
-		return redirect('ProjectApp:Projects')
+	#else:
+		#return redirect('ProjectApp:Projects')
 
 
