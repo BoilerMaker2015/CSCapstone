@@ -6,7 +6,7 @@ from .models import Engineer
 # get all the engineers for the home page
 def index(request):
     engineer_list = Engineer.objects.all()
-    context = {"engineers": engineer_list} 
+    context = {"engineers": engineer_list}
     return render(request, "engineerIndex.html", context)
 
 def addEngineer(request):
