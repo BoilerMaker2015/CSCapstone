@@ -20,6 +20,12 @@ class RegisterForm(forms.Form):
 
     firstname = forms.CharField(label="First name", widget=forms.TextInput, required=False)
     lastname = forms.CharField(label="Last name", widget=forms.TextInput, required=False)
+    # gives the option of either to register as a student,teacher or engineer
+    PART_CHOICES = (
+        ('Student', 'Student'),
+        ('Teacher', 'Teacher'),
+        ('Engineer', 'Engineer'),)
+    choice = forms.ChoiceField(label="Choice",choices=PART_CHOICES)
 
     def clean_password2(self):
         # Check that the two password entries match

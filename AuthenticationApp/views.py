@@ -9,7 +9,7 @@ from django.shortcuts import render
 from django.contrib import messages
 
 from .forms import LoginForm, RegisterForm, UpdateForm
-from .models import MyUser, Student
+from .models import MyUser, Student, Professor, Engineer
 
 
 # Auth Views
@@ -55,10 +55,22 @@ def auth_register(request):
                                               password=form.cleaned_data["password2"],
                                               first_name=form.cleaned_data['firstname'],
                                               last_name=form.cleaned_data['lastname'])
+        choice = form.cleaned_data['choice']
+        #print('you selected' + choice)
         new_user.save()
-        # Also registering students
-        new_student = Student(user=new_user)
-        new_student.save()
+
+
+        # Registering either student teacher or engineer
+        if choice == 'Student':
+            new_student = Student(user=new_user)
+            new_student.save()
+        elif choice == 'Teacher':
+            new_professor = Professor(user=new_user)
+            new_professor.save()
+        elif choice == 'Engineer':
+            new_engineer = Engineer(user=new_user)
+            new_engineer.save()
+
         login(request, new_user);
         messages.success(request, 'Success! Your account was created.')
         return render(request, 'body.html')
