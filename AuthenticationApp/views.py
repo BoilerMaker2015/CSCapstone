@@ -64,14 +64,20 @@ def auth_register(request):
         if choice == 'Student':
             #setting the user attirubte to be as a student
             new_user.is_student = True
+            new_user.save()
+
             new_student = Student(user=new_user)
             new_student.save()
         elif choice == 'Professor':
             new_user.is_professor = True
+            new_user.save()
+
             new_professor = Professor(user=new_user)
             new_professor.save()
         elif choice == 'Engineer':
             new_user.is_engineer = True
+            new_user.save()
+
             new_engineer = Engineer(user=new_user)
             new_engineer.save()
 
