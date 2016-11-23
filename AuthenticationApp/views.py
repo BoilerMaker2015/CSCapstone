@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.contrib import messages
 
-from .forms import LoginForm, RegisterForm, UpdateForm
+from .forms import LoginForm, RegisterForm, UpdateForm, UpdateStudentForm
 from .models import MyUser, Student, Professor, Engineer
 
 
@@ -97,12 +97,21 @@ def auth_register(request):
 @login_required
 def update_profile(request):
     form = UpdateForm(request.POST or None, instance=request.user)
-    if form.is_valid():
+    form_2_student = UpdateStudentForm(request.POST or None, instance=request.user)
+
+    print(request.user.is_student)
+    #if request.user.is_student:
+
+    if form.is_valid() and form_2_student.is_valid():
         form.save()
+        form_2_student.save()
         messages.success(request, 'Success, your profile was saved!')
+
+
 
     context = {
         "form": form,
+        "form_2": form_2_student,
         "page_name": "Update",
         "button_value": "Update",
         "links": ["logout"],
