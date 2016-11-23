@@ -23,7 +23,7 @@ class RegisterForm(forms.Form):
     # gives the option of either to register as a student,teacher or engineer
     PART_CHOICES = (
         ('Student', 'Student'),
-        ('Teacher', 'Teacher'),
+        ('Professor', 'Professor'),
         ('Engineer', 'Engineer'),)
     choice = forms.ChoiceField(label="Choice",choices=PART_CHOICES)
 

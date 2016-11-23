@@ -4,7 +4,9 @@ Created by Harris Christiansen on 10/02/16.
 """
 from django.shortcuts import render,redirect
 from .forms import ProjectForm
+from django.http import HttpResponseRedirect, HttpResponse
 from django.utils import timezone
+from django.contrib import messages
 
 from . import models
 from .models import Project
@@ -40,12 +42,15 @@ def addProject(request):
 				return redirect('project:Projects')
 		else:
 			#print("asdas")
+
 			return render(request, 'addproject.html', {
 				'form': form_class
 			})
 
 	#this person is not even
 	else:
+		messages.error(request, "You are not an Engineer.Unable to create a project")
+		#return HttpResponseRedirect(request('project:Projects'))
 		return redirect('project:Projects')
 
 
