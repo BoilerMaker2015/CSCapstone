@@ -65,8 +65,8 @@ def auth_register(request):
             #setting the user attirubte to be as a student
             new_user.is_student = True
             new_user.save()
-
-            new_student = Student(user=new_user)
+            #creating the student object with the default attributes, put it as NONE first as you need to initialise it
+            new_student = Student(user=new_user,major=None,skills=None)
             new_student.save()
         elif choice == 'Professor':
             new_user.is_professor = True

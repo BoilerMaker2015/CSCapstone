@@ -102,6 +102,18 @@ class Student(models.Model):
         on_delete=models.CASCADE,
         primary_key=True)
 
+    #defined your own Attirubtes Here
+    major = models.CharField(
+        max_length=120,
+        null=True,
+    )
+
+    skills = models.CharField(
+        max_length=120,
+        null=True,
+        blank=True,
+    )
+
     def get_full_name(self):
         return "%s %s" % (self.user.first_name, self.user.last_name)
 
@@ -130,6 +142,12 @@ class Professor(models.Model):
         on_delete=models.CASCADE,
         primary_key=True)
 
+    #
+    #   ADD YOUR ATTRIBUTES HERE
+    #
+    #
+
+
     def get_full_name(self):
         return "%s %s" % (self.user.first_name, self.user.last_name)
 
@@ -157,6 +175,11 @@ class Engineer(models.Model):
         MyUser,
         on_delete=models.CASCADE,
         primary_key=True)
+
+    #
+    #   ADD YOUR ATTRIBUTES HERE
+    #
+    #
 
     def get_full_name(self):
         return "%s %s" % (self.user.first_name, self.user.last_name)
