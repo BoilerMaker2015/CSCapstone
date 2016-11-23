@@ -8,6 +8,7 @@ from django.core.urlresolvers import reverse_lazy
 
 # Create your views here.
 def getComments(request):
+
     comment_list = Comment.objects.all()
     context = {
         'comment' : comment_list,
@@ -19,7 +20,7 @@ def getCommentForm(request):
     return render(request, 'commentForm.html')
 
 def addComment(request):
-    print("i am in addcomment")
+
     if request.method == 'POST':
         form = forms.CommentForm(request.POST)
         if form.is_valid():
