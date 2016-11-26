@@ -110,6 +110,13 @@ class Student(models.Model):
         null=True,
     )
 
+    year = models.CharField(
+        max_length=120,
+        null=True,
+        blank=True,
+    )
+
+
     skills = models.CharField(
         max_length=120,
         null=True,

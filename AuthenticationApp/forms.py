@@ -95,10 +95,36 @@ class UpdateStudentForm(forms.ModelForm):
     password hash display field.
     """
 
+    year_choice = (
+        ('Freshman', 'Freshman'),
+        ('Sophomore', 'Sophomore'),
+        ('Junior', 'Junior'),
+        ('Senior', 'Senior'),
+    )
+
+    skill_choice = (
+        ('IOS Programming', 'IOS Programming'),
+        ('Algorithms', 'Data Structure and Algorithms'),
+        ('Android Programming', 'Android Programming'),
+        ('Web Development', 'Web Development'),
+    )
+
+    skills = forms.MultipleChoiceField(
+        required=False,
+        widget=forms.CheckboxSelectMultiple,
+        choices=skill_choice,
+    )
+    year = forms.ChoiceField(label="Year",choices=year_choice)
+
+    # favorite_colors = forms.MultipleChoiceField(
+    #     required=False,
+    #     widget=forms.CheckboxSelectMultiple,
+    #     choices=year_choice,
+    # )
 
     class Meta:
         model = Student
-        fields = ('major', 'skills')
+        fields = ('major', 'skills','year')
 
 
 

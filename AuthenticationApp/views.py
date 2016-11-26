@@ -106,6 +106,7 @@ def update_profile(request):
 
 
     # print(request.user.student.pk)
+    print(request.user.student.year)
     if request.user.is_student:
         form_2 = UpdateStudentForm(request.POST or None, instance = request.user.student)
         if form.is_valid() and form_2.is_valid():
@@ -114,6 +115,14 @@ def update_profile(request):
             student = request.user.student
             student.major = form_2.cleaned_data['major']
             student.skills = form_2.cleaned_data['skills']
+            #print(student.skills)
+
+            student.year = form_2.cleaned_data['year']
+
+            #color = form_2.cleaned_data['favorite_colors']
+
+
+
             student.save()
             form.save()
             #form_2.save()
