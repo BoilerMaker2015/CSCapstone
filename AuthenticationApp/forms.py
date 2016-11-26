@@ -101,6 +101,7 @@ class UpdateStudentForm(forms.ModelForm):
         fields = ('major', 'skills')
 
 
+
 """Update Professor Form"""
 # class UpdateProfessorForm(forms.ModelForm):
 #     """A form for updating Professor. Includes all the fields on

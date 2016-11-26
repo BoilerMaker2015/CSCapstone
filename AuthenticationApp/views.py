@@ -93,53 +93,6 @@ def auth_register(request):
     }
     return render(request, 'auth_form.html', context)
 
-#
-# @login_required
-# def update_profile(request):
-#     form = UpdateForm(request.POST or None, instance=request.user)
-#     # form_2_student = UpdateStudentForm(request.POST or None, instance=request.user)
-#     form_2 = None
-#     # something = form.clean_email()
-#     # print(something)
-#     # if request.user.is_student:
-#     form_2 = UpdateStudentForm(request.POST or None, instance=request.user)
-#
-#
-#         # print(something)
-#
-#    # print("the pk of the user is " + str(request.user.id))
-#
-#     print(request.user.student.pk)
-#     if request.user.is_student:
-#
-#         #form_2 = UpdateStudentForm(request.POST or None, instance = request.user)
-#         if form.is_valid() and form_2.is_valid():
-#             #print("the pk of the user is " + request.user.id)
-#             # have to get the child object of the user first (either "Student" / "professor" or "enginneer")
-#             student = request.user.student
-#             #student.major = form_2.cleaned_data['major']
-#             #student.skills = form_2.cleaned_data['skills']
-#             student.save()
-#             form.save()
-#             #form_2.save()
-#
-#             messages.success(request, 'Success, your profile was saved!')
-#     else:
-#         if form.is_valid():
-#             form.save()
-#             messages.success(request, 'Success, your profile was saved!')
-#
-#
-#
-#
-#     context = {
-#         "form": form,
-#         "form_2": form_2,
-#         "page_name": "Update",
-#         "button_value": "Update",
-#         "links": ["logout"],
-#     }
-#     return render(request, 'auth_form.html', context)
 
 @login_required
 def update_profile(request):
@@ -149,14 +102,6 @@ def update_profile(request):
         form_2 =UpdateStudentForm(request.POST or None, instance=request.user.student)
     else:
         form_2 = None
-    # something = form.clean_email()
-    # print(something)
-    # if request.user.is_student:
-    #     form_2 = UpdateStudentForm(request.POST or None, instance=request.user)
-
-        # print(something)
-
-   # print("the pk of the user is " + str(request.user.id))
 
 
 
@@ -175,7 +120,7 @@ def update_profile(request):
 
             messages.success(request, 'Success, your profile was saved!')
     else:
-        
+
         if form.is_valid():
             form.save()
             messages.success(request, 'Success, your profile was saved!')
