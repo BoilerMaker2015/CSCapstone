@@ -53,6 +53,7 @@ class MyUser(AbstractBaseUser):
         null=True,
         blank=True,
     )
+
     #last_name = tinymce_models.HTMLField()
 
     is_active = models.BooleanField(default=True, )
