@@ -97,21 +97,50 @@ def auth_register(request):
 @login_required
 def update_profile(request):
     form = UpdateForm(request.POST or None, instance=request.user)
-    form_2_student = UpdateStudentForm(request.POST or None, instance=request.user)
+    # form_2_student = UpdateStudentForm(request.POST or None, instance=request.user)
+    if request.user.is_student:
+        form_2 =UpdateStudentForm(request.POST or None, instance=request.user.student)
+    else:
+        form_2 = None
 
-    print(request.user.is_student)
-    #if request.user.is_student:
 
-    if form.is_valid() and form_2_student.is_valid():
-        form.save()
-        form_2_student.save()
-        messages.success(request, 'Success, your profile was saved!')
+
+    # print(request.user.student.pk)
+    print(request.user.student.year)
+    if request.user.is_student:
+        form_2 = UpdateStudentForm(request.POST or None, instance = request.user.student)
+        if form.is_valid() and form_2.is_valid():
+            #print("the pk of the user is " + request.user.id)
+            # have to get the child object of the user first (either "Student" / "professor" or "enginneer")
+            student = request.user.student
+            student.major = form_2.cleaned_data['major']
+            student.skills = form_2.cleaned_data['skills']
+            #print(student.skills)
+
+            student.year = form_2.cleaned_data['year']
+
+            #color = form_2.cleaned_data['favorite_colors']
+
+
+
+            student.save()
+            form.save()
+            #form_2.save()
+
+            messages.success(request, 'Success, your profile was saved!')
+    else:
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Success, your profile was saved!')
+
+
 
 
 
     context = {
         "form": form,
-        "form_2": form_2_student,
+        "form_2": form_2,
         "page_name": "Update",
         "button_value": "Update",
         "links": ["logout"],

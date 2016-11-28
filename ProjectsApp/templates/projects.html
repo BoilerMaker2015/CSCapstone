@@ -15,8 +15,18 @@
 				<tbody>
 					{% for project in projects %}
 					<tr>
-						<td>{{ project.name }}</td>
+						<td><a href="/project?name={{ project.name }}">{{ project.name }}</a></td>
 						<td>{{ project.description }}</td>
+                         <td>
+{#                             <a href="/" class="btn btn-default btn-sm btn-favorite" role="button">#}
+{#                                <span class="glyphicon glyphicon-star {% if album.is_favorite %}active{% endif %}"></span>#}
+{#                                    <span class="glyphicon glyphicon-star "></span>#}
+{#                         </a>#}
+
+                             <a href="/project/bookmarkProject?name={{ project.name }}" class="btn btn-default">BookMark</a>
+
+                         </td>
+
 					</tr>
 					{% endfor %}
 				</tbody>

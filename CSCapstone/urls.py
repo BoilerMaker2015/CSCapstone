@@ -12,6 +12,7 @@ from django.contrib import admin
 
 urlpatterns = [
 	url(r'^admin/', admin.site.urls),
+	url(r'^tinymce/',include('tinymce.urls')),
 	url(r'^auth/', include('AuthenticationApp.urls')),
 	url(r'^comment/', include('CommentsApp.urls')),
 	url(r'^', include('CSCapstoneApp.urls')),

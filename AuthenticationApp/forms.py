@@ -4,6 +4,9 @@ Created by Naman Patwari on 10/4/2016.
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django import forms
 from .models import MyUser,Student,Engineer,Professor
+from tinymce.widgets import TinyMCE
+from tinymce import models as tinymce_models
+
 
 
 class LoginForm(forms.Form):
@@ -20,6 +23,7 @@ class RegisterForm(forms.Form):
 
     firstname = forms.CharField(label="First name", widget=forms.TextInput, required=False)
     lastname = forms.CharField(label="Last name", widget=forms.TextInput, required=False)
+    #lastname = tinymce_models.HTMLField()
     # gives the option of either to register as a student,teacher or engineer
     PART_CHOICES = (
         ('Student', 'Student'),
@@ -56,9 +60,6 @@ class UpdateForm(forms.ModelForm):
 
     class Meta:
         model = MyUser
-
-
-
         fields = ('email', 'password', 'first_name', 'last_name')
 
     def clean_password(self):
@@ -93,14 +94,64 @@ class UpdateStudentForm(forms.ModelForm):
     the user, but replaces the password field with admin's
     password hash display field.
     """
-    password = ReadOnlyPasswordHashField()
+
+    year_choice = (
+        ('Freshman', 'Freshman'),
+        ('Sophomore', 'Sophomore'),
+        ('Junior', 'Junior'),
+        ('Senior', 'Senior'),
+    )
+
+    skill_choice = (
+        ('IOS Programming', 'IOS Programming'),
+        ('Algorithms', 'Data Structure and Algorithms'),
+        ('Android Programming', 'Android Programming'),
+        ('Web Development', 'Web Development'),
+    )
+
+    skills = forms.MultipleChoiceField(
+        required=False,
+        widget=forms.CheckboxSelectMultiple,
+        choices=skill_choice,
+    )
+    year = forms.ChoiceField(label="Year",choices=year_choice)
+
+    # favorite_colors = forms.MultipleChoiceField(
+    #     required=False,
+    #     widget=forms.CheckboxSelectMultiple,
+    #     choices=year_choice,
+    # )
 
     class Meta:
         model = Student
+        fields = ('major', 'skills','year')
 
 
 
-        fields = ('major', 'skills')
+"""Update Professor Form"""
+# class UpdateProfessorForm(forms.ModelForm):
+#     """A form for updating Professor. Includes all the fields on
+#     the user, but replaces the password field with admin's
+#     password hash display field.
+#     """
+#     password = ReadOnlyPasswordHashField()
+#
+#     class Meta:
+#         model = Professor
+
+"""Update Engineer Form"""
+# class UpdateEngineerForm(forms.ModelForm):
+#     """A form for updating engineer. Includes all the fields on
+#     the user, but replaces the password field with admin's
+#     password hash display field.
+#     """
+#     password = ReadOnlyPasswordHashField()
+#
+#     class Meta:
+#         model = Engineer
+
+
+
 
 
 

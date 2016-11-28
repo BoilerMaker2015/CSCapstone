@@ -6,6 +6,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 from django.db.models.signals import post_save
+from tinymce import models as tinymce_models
 
 
 # Create your models here.
@@ -52,6 +53,8 @@ class MyUser(AbstractBaseUser):
         null=True,
         blank=True,
     )
+
+    #last_name = tinymce_models.HTMLField()
 
     is_active = models.BooleanField(default=True, )
     is_admin = models.BooleanField(default=False, )
@@ -108,11 +111,20 @@ class Student(models.Model):
         null=True,
     )
 
+    year = models.CharField(
+        max_length=120,
+        null=True,
+        blank=True,
+    )
+
+
     skills = models.CharField(
         max_length=120,
         null=True,
         blank=True,
     )
+
+
 
     def get_full_name(self):
         return "%s %s" % (self.user.first_name, self.user.last_name)

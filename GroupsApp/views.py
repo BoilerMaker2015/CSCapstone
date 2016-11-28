@@ -60,8 +60,8 @@ def joinGroup(request):
         in_group = models.Group.objects.get(name__exact=in_name)
         in_group.members.add(request.user)
         in_group.save();
-        request.user.group_set.add(in_group)
-        request.user.save()
+        #request.user.group_set.add(in_group)
+        #request.user.save()
         context = {
             'group' : in_group,
             'userIsMember': True,
