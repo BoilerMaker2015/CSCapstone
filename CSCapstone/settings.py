@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'GroupsApp',
 	'UniversitiesApp',
     'CommentsApp',
-    'TeacherApp',
+    'ProfessorApp',
     'EngineerApp',
 
 ]

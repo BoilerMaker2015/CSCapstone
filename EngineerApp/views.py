@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from .forms import EngineerForm
-from .models import Engineer
+#from .models import Engineer
+from AuthenticationApp.models import Engineer
 # Create your views here.
 
 # get all the engineers for the home page
