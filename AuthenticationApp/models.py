@@ -158,7 +158,15 @@ class Professor(models.Model):
     #   ADD YOUR ATTRIBUTES HERE
     #
     #
+    university = models.CharField(
+        max_length = 120,
+        null = True,
+        blank = True,
+    )
+    phone = models.CharField(
+        max_length = 10,
 
+    )
 
     def get_full_name(self):
         return "%s %s" % (self.user.first_name, self.user.last_name)
