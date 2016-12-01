@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.contrib import messages
 
-from .forms import LoginForm, RegisterForm, UpdateForm, UpdateStudentForm
+from .forms import LoginForm, RegisterForm, UpdateForm, UpdateStudentForm, UpdateProfessorForm, UpdateEngineerForm
 from .models import MyUser, Student, Professor, Engineer
 
 
@@ -72,13 +72,13 @@ def auth_register(request):
             new_user.is_professor = True
             new_user.save()
 
-            new_professor = Professor(user=new_user)
+            new_professor = Professor(user=new_user, university = None, teachClass = None, phone = None) # note: maybe we do not need to give the special attributes, since it is null : true.)
             new_professor.save()
         elif choice == 'Engineer':
             new_user.is_engineer = True
             new_user.save()
 
-            new_engineer = Engineer(user=new_user)
+            new_engineer = Engineer(user=new_user, company = None, position = None, phone = None)
             new_engineer.save()
 
         login(request, new_user);
@@ -100,13 +100,17 @@ def update_profile(request):
     # form_2_student = UpdateStudentForm(request.POST or None, instance=request.user)
     if request.user.is_student:
         form_2 =UpdateStudentForm(request.POST or None, instance=request.user.student)
+    elif request.user.is_professor:
+        form_2 =UpdateProfessorForm(request.POST or None, instance=request.user.professor)
+    elif request.user.is_engineer:
+        form_2 =UpdateEngineerForm(request.POST or None, instance=request.user.engineer)   
     else:
         form_2 = None
 
 
 
     # print(request.user.student.pk)
-    print(request.user.student.year)
+    #print(request.user.student.year)
     if request.user.is_student:
         form_2 = UpdateStudentForm(request.POST or None, instance = request.user.student)
         if form.is_valid() and form_2.is_valid():
@@ -128,13 +132,32 @@ def update_profile(request):
             #form_2.save()
 
             messages.success(request, 'Success, your profile was saved!')
+
+    elif request.user.is_professor:
+        if form.is_valid() and form_2.is_valid():
+            professor = request.user.professor
+            professor.university = form_2.cleaned_data['university']
+            professor.teachClass = form_2.cleaned_data['teachClass']
+            professor.phone = form_2.cleaned_data['phone']
+            form.save()
+            professor.save()
+            messages.success(request, 'Success, your profile was saved!')
+
+    elif request.user.is_engineer:
+        if form.is_valid() and form_2.is_valid():
+            engineer = request.user.engineer
+            engineer.company = form_2.cleaned_data['company']
+            engineer.position = form_2.cleaned_data['position']
+            engineer.phone = form_2.cleaned_data['phone']
+            form.save()
+            engineer.save()
+            messages.success(request, 'Success, your profile was saved!')
+
     else:
 
         if form.is_valid():
             form.save()
             messages.success(request, 'Success, your profile was saved!')
-
-
 
 
 

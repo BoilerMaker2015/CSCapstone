@@ -159,6 +159,22 @@ class Professor(models.Model):
     #
     #
 
+    university = models.CharField(
+        max_length=120,
+        null=True,
+        blank=True,
+    )
+    teachClass = models.CharField(
+        max_length=120,
+        null=True,
+        blank=True,
+    )
+    phone = models.CharField(
+        max_length=10,
+        null=True,
+        blank=True,
+    )
+
 
     def get_full_name(self):
         return "%s %s" % (self.user.first_name, self.user.last_name)
@@ -192,6 +208,23 @@ class Engineer(models.Model):
     #   ADD YOUR ATTRIBUTES HERE
     #
     #
+
+    company = models.CharField(
+        max_length=120,
+        null=True,
+        blank=True,
+    )
+    position = models.CharField(
+        max_length=120,
+        null=True,
+        blank=True,
+    )
+    phone = models.CharField(
+        max_length=10,
+        null=True,
+        blank=True,
+    )
+
 
     def get_full_name(self):
         return "%s %s" % (self.user.first_name, self.user.last_name)

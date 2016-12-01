@@ -129,26 +129,21 @@ class UpdateStudentForm(forms.ModelForm):
 
 
 """Update Professor Form"""
-# class UpdateProfessorForm(forms.ModelForm):
-#     """A form for updating Professor. Includes all the fields on
-#     the user, but replaces the password field with admin's
-#     password hash display field.
-#     """
-#     password = ReadOnlyPasswordHashField()
-#
-#     class Meta:
-#         model = Professor
+class UpdateProfessorForm(forms.ModelForm):
+
+
+    class Meta:
+        model = Professor
+        fields = ('university', 'teachClass', 'phone')
+
 
 """Update Engineer Form"""
-# class UpdateEngineerForm(forms.ModelForm):
-#     """A form for updating engineer. Includes all the fields on
-#     the user, but replaces the password field with admin's
-#     password hash display field.
-#     """
-#     password = ReadOnlyPasswordHashField()
-#
-#     class Meta:
-#         model = Engineer
+class UpdateEngineerForm(forms.ModelForm):
+
+
+    class Meta:
+        model = Engineer
+        fields = ('company', 'position', 'phone')
 
 
 
