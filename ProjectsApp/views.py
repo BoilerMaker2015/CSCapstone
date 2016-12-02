@@ -41,7 +41,15 @@ def getBookMarkProjectOnly(request):
 	return render(request,'autherror.html')
 
 def getProject(request):
-	return render(request, 'project.html')
+	if request.user.is_authenticated:
+		in_id = request.GET.get('id', 'None')
+		project = Project.objects.get(pk=in_id)
+		context = {
+			'project' : project
+		}
+
+
+	return render(request, 'project.html',context)
 
 def addProject(request):
 	form_class = ProjectForm
