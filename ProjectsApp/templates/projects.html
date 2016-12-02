@@ -18,28 +18,15 @@
 						<td><a href="/project?id={{ project.id }}">{{ project.name }}</a></td>
 						<td>{{ project.description }}</td>
                          <td>
-{#                             <a href="/" class="btn btn-default btn-sm btn-favorite" role="button">#}
-{#                                <span class="glyphicon glyphicon-star {% if album.is_favorite %}active{% endif %}"></span>#}
-{#                                    <span class="glyphicon glyphicon-star "></span>#}
-{#                         </a>#}
-
-{#                          {% function check(members) { #}
-{#                             for(var i; i < members; i++} {#}
-{#                                if (members[i] == request.user) {#}
-{#                                    return true;#}
-{#                                }#}
-{#                                #}
-{#                             }#}
-{#                             return false;#}
-{#                             #}
-{#                             } %}#}
-{#                             #}
-{#                             {%  check(project.bookmarkMembers) %}#}
 
                              {% if request.user in project.bookmarkMembers.all  %}
-                                <a href="/project/unbookmarkProject?id={{ project.id }}" class="btn btn-default">UnBookMark</a>
+                                <a href="/project/unbookmarkProject?id={{ project.id }}" class="btn-sm btn-favorite" role="button">
+                                    <span class="glyphicon glyphicon-star active"></span>
+                                </a>
                                 {% else %}
-                                 <a href="/project/bookmarkProject?id={{ project.id }}" class="btn btn-default">BookMark</a>
+                                 <a href="/project/bookmarkProject?id={{ project.id }}" class="btn btn-default btn-favorite" role="button">
+                                    <span class="glyphicon glyphicon-star"></span>
+                                 </a>
                              {% endif %}
 
 

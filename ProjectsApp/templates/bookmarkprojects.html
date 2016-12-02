@@ -2,6 +2,7 @@
 {% block content %}
 
 	<!-- Content -->
+    <!-- view bookmark projects only -->
 	<div class="container" role="main">
 		<div class="table-responsive">
 			<table class="table table-striped sortable">
@@ -15,7 +16,7 @@
 					{% for project in projects %}
 					<tr>
                         {% if request.user in project.bookmarkMembers.all  %}
-						<td><a href="/project?name={{ project.name }}">{{ project.name }}</a></td>
+						<td><a href="/project?id={{ project.id }}">{{ project.name }}</a></td>
 						<td>{{ project.description }}</td>
 
                     {% endif %}
