@@ -92,15 +92,15 @@ def bookmarkProject(request):
         project.bookmarkMembers.add(request.user)
         project.save()
 
-        project_list = []
-        for i in Project.objects.all():
-            if request.user in i.bookmarkMembers.all():
-                project_list.append(i)
-        for i in Project.objects.all():
-            if request.user not in i.bookmarkMembers.all():
-                project_list.append(i)
+        # project_list = []
+        # for i in Project.objects.all():
+        #     if request.user in i.bookmarkMembers.all():
+        #         project_list.append(i)
+        # for i in Project.objects.all():
+        #     if request.user not in i.bookmarkMembers.all():
+        #         project_list.append(i)
 
-        # project_list = Project.objects.all()
+        project_list = Project.objects.all()
 
         context = {
             'projects': project_list
