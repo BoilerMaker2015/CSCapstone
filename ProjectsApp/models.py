@@ -15,6 +15,7 @@ class Project(models.Model):
     updated_at = models.DateTimeField('date updated')
 
 
+
     # TODO Task 3.5: Add field for company relationship
     # TODO Task 3.5: Add fields for project qualifications (minimum required: programming language, years of experience, speciality)
 

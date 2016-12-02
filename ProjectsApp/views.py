@@ -13,7 +13,16 @@ from . import models
 from .models import Project
 
 def getProjects(request):
-	projects_list = models.Project.objects.all()
+	#projects_list = models.Project.objects.all()
+	#list = []
+	projects_list = []
+	#sorting by bookmark first then only list out the unbookmarked
+	for i in Project.objects.all():
+		if request.user in i.bookmarkMembers.all():
+			projects_list.append(i)
+	for i in Project.objects.all():
+		if request.user not in i.bookmarkMembers.all():
+			projects_list.append(i)
 
 
 
@@ -74,7 +83,19 @@ def bookmarkProject(request):
 		project.bookmarkMembers.add(request.user)
 		project.save()
 
-		project_list = Project.objects.all()
+		project_list = []
+		for i in Project.objects.all():
+			if request.user in i.bookmarkMembers.all():
+				project_list.append(i)
+		for i in Project.objects.all():
+			if request.user not in i.bookmarkMembers.all():
+				project_list.append(i)
+
+
+
+
+		#project_list = Project.objects.all()
+
 		context = {
 			'projects' : project_list
 		}
