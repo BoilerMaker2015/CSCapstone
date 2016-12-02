@@ -6,7 +6,8 @@ from django.db import models
 from AuthenticationApp.models import MyUser
 
 class Project(models.Model):
-    members = models.ManyToManyField(MyUser)
+    bookmarkMembers = models.ManyToManyField(MyUser)
+
     #bookmark = models.ManyToManyField(MyUser)
     name = models.CharField(max_length=200)
     description = models.CharField(max_length=10000)

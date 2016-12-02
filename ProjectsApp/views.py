@@ -21,6 +21,16 @@ def getProjects(request):
         'projects': projects_list,
     })
 
+def getBookMarkProjectOnly(request):
+	if request.user.is_authenticated:
+		project_list = Project.objects.all()
+		context = {
+			'projects': project_list
+		}
+
+		return render(request,'bookmarkprojects.html',context)
+	return render(request,'autherror.html')
+
 def getProject(request):
 	return render(request, 'project.html')
 
@@ -56,20 +66,44 @@ def addProject(request):
 		return redirect('project:Projects')
 
 def bookmarkProject(request):
-	# if request.user.is_authenticated():
-	# 	in_name = request.GET.get('name', 'None')
-	# 	is_bookmarked = models.Project.objects.get(name__exact=in_name)
-	# 	is_bookmarked.bookmark.add(request.user)
-	# 	# is_bookmarked.save()
-	# 	request.user.group_set.add(is_bookmarked)
-	# 	# request.user.save()
-	# 	context = {
-	# 		'bookmark' : is_bookmarked,
-	# 		'projectIsBookMark' : True,
-	# 	}
-	# 	#return render(request,'projects.html',context)
-	return HttpResponse("Sadsa")
+	if request.user.is_authenticated():
+		in_id = request.GET.get('id', 'None')
+		print(in_id)
+		project = Project.objects.get(pk=in_id)
+		print("user has bookedmarked " + project.name)
+		project.bookmarkMembers.add(request.user)
+		project.save()
 
+		project_list = Project.objects.all()
+		context = {
+			'projects' : project_list
+		}
+
+		return render(request,'projects.html',context)
+	#should return error
+	return HttpResponse("you are not login")
+	#return HttpResponse("Sadsa")
+
+#unbookmarking the project
+def unbookmarkProject(request):
+	if request.user.is_authenticated():
+		in_id = request.GET.get('id', 'None')
+		print(in_id)
+		project = Project.objects.get(pk=in_id)
+		print("user has unbookedmarked " + project.name)
+		project.bookmarkMembers.remove(request.user)
+		project.save()
+
+		project_list = Project.objects.all()
+		context = {
+			'projects': project_list
+		}
+
+		return render(request, 'projects.html', context)
+
+
+	# should return error
+	return render(request,'autherror.html')
 
 
 

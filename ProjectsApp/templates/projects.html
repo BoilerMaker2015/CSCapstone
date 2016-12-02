@@ -23,7 +23,26 @@
 {#                                    <span class="glyphicon glyphicon-star "></span>#}
 {#                         </a>#}
 
-                             <a href="/project/bookmarkProject?name={{ project.name }}" class="btn btn-default">BookMark</a>
+{#                          {% function check(members) { #}
+{#                             for(var i; i < members; i++} {#}
+{#                                if (members[i] == request.user) {#}
+{#                                    return true;#}
+{#                                }#}
+{#                                #}
+{#                             }#}
+{#                             return false;#}
+{#                             #}
+{#                             } %}#}
+{#                             #}
+{#                             {%  check(project.bookmarkMembers) %}#}
+
+                             {% if request.user in project.bookmarkMembers.all  %}
+                                <a href="/project/unbookmarkProject?id={{ project.id }}" class="btn btn-default">UnBookMark</a>
+                                {% else %}
+                                 <a href="/project/bookmarkProject?id={{ project.id }}" class="btn btn-default">BookMark</a>
+                             {% endif %}
+
+
 
                          </td>
 
