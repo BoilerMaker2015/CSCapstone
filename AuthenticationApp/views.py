@@ -10,6 +10,7 @@ from django.contrib import messages
 
 from .forms import LoginForm, RegisterForm, UpdateForm, UpdateStudentForm, UpdateProfessorForm, UpdateEngineerForm
 from .models import MyUser, Student, Professor, Engineer
+from CompaniesApp.models import Company
 
 
 # Auth Views
@@ -111,6 +112,8 @@ def update_profile(request):
 
     # print(request.user.student.pk)
     #print(request.user.student.year)
+
+
     if request.user.is_student:
         form_2 = UpdateStudentForm(request.POST or None, instance = request.user.student)
         if form.is_valid() and form_2.is_valid():
@@ -134,7 +137,9 @@ def update_profile(request):
             messages.success(request, 'Success, your profile was saved!')
 
     elif request.user.is_professor:
+
         if form.is_valid() and form_2.is_valid():
+
             professor = request.user.professor
             professor.university = form_2.cleaned_data['university']
             professor.teachClass = form_2.cleaned_data['teachClass']
@@ -144,12 +149,17 @@ def update_profile(request):
             messages.success(request, 'Success, your profile was saved!')
 
     elif request.user.is_engineer:
+
         if form.is_valid() and form_2.is_valid():
             engineer = request.user.engineer
-            engineer.company = form_2.cleaned_data['company']
+            company = Company.objects.get(pk=form_2.cleaned_data['company'].id)
+            company.members.add(request.user)
+            #engineer.company = form_2.cleaned_data['company']
+
             engineer.position = form_2.cleaned_data['position']
             engineer.phone = form_2.cleaned_data['phone']
             form.save()
+            form_2.save()
             engineer.save()
             messages.success(request, 'Success, your profile was saved!')
 

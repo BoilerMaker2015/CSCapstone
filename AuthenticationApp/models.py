@@ -9,6 +9,7 @@ from django.db.models.signals import post_save
 from tinymce import models as tinymce_models
 
 
+
 # Create your models here.
 class MyUserManager(BaseUserManager):
     def create_user(self, email=None, password=None, first_name=None, last_name=None):
@@ -214,6 +215,8 @@ class Engineer(models.Model):
         null=True,
         blank=True,
     )
+
+
     position = models.CharField(
         max_length=120,
         null=True,
