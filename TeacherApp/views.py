@@ -1,7 +1,7 @@
 
 from django.shortcuts import render
 from . import models
-
+from django.contrib import messages
 from . import forms
 # Create your views here.
 def index(request) :
@@ -9,7 +9,8 @@ def index(request) :
     context = {
         'teachers': teachers_list,
     }
-    return render(request, 'teacher.html', context)
+    messages.success(request, 'In teacher Index method')
+    return render(request, 'teacherIndex.html', context)
 
 def getTeacherForm(request):
     return render(request, 'teacherForm.html')
@@ -36,4 +37,43 @@ def submitTeacher(request):
         else:
             form = forms.TeacherForm()
     return render(request, 'teacher.html')
+
+def teachClass(request):
+
+    class_list = request.user.professor.teachClass.all()
+    context = {
+    'classList': class_list,
+    }
+    
+    messages.success(request, 'In teacher teachClass method')
+    return render(request, 'teachClass.html', context)
+
+ 
+
+def classForm(request):
+    if request.method == 'POST':
+        form = forms.TeachClassForm(request.POST)
+        if form.is_valid():
+            new_class = models.TeachClass()
+            new_class.title = form.cleaned_data['title']
+            new_class.save()
+            class_list = request.user.teachClass.object.all()
+            context = {
+            'classList': class_list,
+            }
+            messages.success(request, 'In teacher classForm method')
+            return render(request, 'classForm.html', context)
+
+    else:
+
+          # when the request method is get
+          # do nothing
+    
+
+        class_list = request.user.professor.teachClass.all()
+        context = {
+        'classList': class_list,
+        }
+        messages.success(request, 'In teacher classForm method')
+        return render(request, 'classForm.html', context)
 

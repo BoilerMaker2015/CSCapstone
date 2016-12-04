@@ -7,7 +7,7 @@ from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 from django.db.models.signals import post_save
 from tinymce import models as tinymce_models
-
+from TeacherApp.models import TeachClass
 
 # Create your models here.
 class MyUserManager(BaseUserManager):
@@ -164,10 +164,8 @@ class Professor(models.Model):
         null=True,
         blank=True,
     )
-    teachClass = models.CharField(
-        max_length=120,
-        null=True,
-        blank=True,
+    teachClass = models.ManyToManyField(
+         TeachClass
     )
     phone = models.CharField(
         max_length=10,

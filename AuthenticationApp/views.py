@@ -10,7 +10,7 @@ from django.contrib import messages
 
 from .forms import LoginForm, RegisterForm, UpdateForm, UpdateStudentForm, UpdateProfessorForm, UpdateEngineerForm
 from .models import MyUser, Student, Professor, Engineer
-
+from django.core.urlresolvers import reverse 
 
 # Auth Views
 
@@ -26,7 +26,21 @@ def auth_login(request):
         if user is not None:
             messages.success(request, 'Success! Welcome, ' + (user.first_name or ""))
             login(request, user)
-            return render(request, 'body.html')
+            
+            if request.user.is_professor:
+                # redirect to teacher index
+                return HttpResponseRedirect(reverse('TeacherApp:index'))
+            else:
+                return render(request, 'body.html')    
+            '''    
+            elif request.user.is_engineer:
+                return HttpResponseRedirect(reverse('EngineerApp:index'))
+            elif request.user.is_student:
+                return HttpResponseRedirect(reverse('StudentApp:index'))
+            '''    
+           
+
+            
         else:
             messages.warning(request, 'Invalid username or password.')
 
@@ -137,11 +151,13 @@ def update_profile(request):
         if form.is_valid() and form_2.is_valid():
             professor = request.user.professor
             professor.university = form_2.cleaned_data['university']
-            professor.teachClass = form_2.cleaned_data['teachClass']
+            professor.teachClass.create(title = form_2.cleaned_data['teachClass'])
             professor.phone = form_2.cleaned_data['phone']
             form.save()
             professor.save()
             messages.success(request, 'Success, your profile was saved!')
+            messages.success(request, 'you are a professor')
+            return HttpResponseRedirect(reverse('TeacherApp:index'))
 
     elif request.user.is_engineer:
         if form.is_valid() and form_2.is_valid():
