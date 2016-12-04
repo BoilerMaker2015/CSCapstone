@@ -1,8 +1,8 @@
 """GroupsApp Views
 Created by Naman Patwari on 10/10/2016.
 """
-from django.shortcuts import render
-
+from django.shortcuts import render,redirect
+from django.contrib import messages
 from . import models
 from . import forms
 
@@ -29,9 +29,14 @@ def getGroup(request):
     # render error page if user is not logged in
     return render(request, 'autherror.html')
 
+# creating group
 def getGroupForm(request):
     if request.user.is_authenticated():
-        return render(request, 'groupform.html')
+        if request.user.is_student:
+            return render(request, 'groupform.html')
+        else:
+            messages.error(request, "You are not a Student.Unable to create a group")
+            return redirect('group:Groups')
     # render error page if user is not logged in
     return render(request, 'autherror.html')
 
@@ -54,19 +59,24 @@ def getGroupFormSuccess(request):
     # render error page if user is not logged in
     return render(request, 'autherror.html')
 
+# only students can join group
 def joinGroup(request):
     if request.user.is_authenticated():
-        in_name = request.GET.get('name', 'None')
-        in_group = models.Group.objects.get(name__exact=in_name)
-        in_group.members.add(request.user)
-        in_group.save();
-        #request.user.group_set.add(in_group)
-        #request.user.save()
-        context = {
-            'group' : in_group,
-            'userIsMember': True,
-        }
-        return render(request, 'group.html', context)
+        if request.user.is_student:
+            in_name = request.GET.get('name', 'None')
+            in_group = models.Group.objects.get(name__exact=in_name)
+            in_group.members.add(request.user)
+            in_group.save();
+            #request.user.group_set.add(in_group)
+            #request.user.save()
+            context = {
+                'group' : in_group,
+                'userIsMember': True,
+            }
+            return render(request, 'group.html', context)
+        else:
+            messages.error(request,"You are not a Student.Unable to join group")
+            return redirect('group:Groups')
     return render(request, 'autherror.html')
     
 def unjoinGroup(request):

@@ -8,6 +8,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.utils import timezone
 from django.contrib import messages
 
+
 from . import models
 from .models import Project
 
@@ -83,6 +84,8 @@ def addProject(request):
         return redirect('project:Projects')
 
 
+
+
 def bookmarkProject(request):
     if request.user.is_authenticated():
         in_id = request.GET.get('id', 'None')
@@ -105,8 +108,11 @@ def bookmarkProject(request):
         context = {
             'projects': project_list
         }
-
+        #return getProjects(request)
+        #return redirect(getProjects(request))
+        #return redirect('project:Projects',context)
         return render(request, 'projects.html', context)
+        #return render(request,'project:Projects',context)
     # should return error
     return HttpResponse("you are not login")
 
@@ -117,7 +123,7 @@ def bookmarkProject(request):
 def unbookmarkProject(request):
     if request.user.is_authenticated():
         in_id = request.GET.get('id', 'None')
-        print(in_id)
+        #print(in_id)
         project = Project.objects.get(pk=in_id)
         print("user has unbookedmarked " + project.name)
         project.bookmarkMembers.remove(request.user)
