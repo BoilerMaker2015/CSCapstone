@@ -125,6 +125,12 @@ class Student(models.Model):
         blank=True,
     )
 
+    platforms = models.CharField(
+        max_length=120,
+        null=True,
+        blank=True
+    )
+
 
 
     def get_full_name(self):

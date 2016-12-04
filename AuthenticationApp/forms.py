@@ -103,15 +103,21 @@ class UpdateStudentForm(forms.ModelForm):
         ('Senior', 'Senior'),
     )
 
-    skill_choice = (
+    platform_choice = (
         ('IOS Programming', 'IOS Programming'),
-        ('Algorithms', 'Data Structure and Algorithms'),
         ('Android Programming', 'Android Programming'),
         ('Web Development', 'Web Development'),
     )
 
 
-    year = forms.ChoiceField(label="Year",choices=year_choice)
+    platforms = forms.MultipleChoiceField(label="Platform",choices=platform_choice,widget=forms.CheckboxSelectMultiple)
+
+
+    year = forms.ChoiceField(label="Year",choices=year_choice,required=False)
+
+    #testing = forms.CharField(max_length=100,widget=forms.Textarea)
+    #testing = forms.CharField(widget=TinyMCE(attrs={'cols': 3, 'rows': 3}))
+    #testing = forms.CharField(max_length=100,required=False)
 
     # favorite_colors = forms.MultipleChoiceField(
     #     required=False,
@@ -121,7 +127,7 @@ class UpdateStudentForm(forms.ModelForm):
 
     class Meta:
         model = Student
-        fields = ('major', 'skills','year')
+        fields = ('major', 'skills','year','platforms')
 
 
 

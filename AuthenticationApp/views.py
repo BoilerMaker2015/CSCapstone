@@ -119,10 +119,11 @@ def update_profile(request):
         if form.is_valid() and form_2.is_valid():
             #print("the pk of the user is " + request.user.id)
             # have to get the child object of the user first (either "Student" / "professor" or "enginneer")
+            #print(form_2.cleaned_data['testing'])
             student = request.user.student
             student.major = form_2.cleaned_data['major']
             student.skills = form_2.cleaned_data['skills']
-            #print(student.skills)
+            student.platforms = form_2.cleaned_data['platforms']
 
             student.year = form_2.cleaned_data['year']
 
