@@ -13,5 +13,6 @@ urlpatterns = [
     url(r'^project$', views.getProject, name='Project'),
     url(r'^addproject$', views.addProject, name='AddProject'),
     url(r'^project/bookmarkProject$',views.bookmarkProject,name='BookmarkProject'),
+   
 
 ]

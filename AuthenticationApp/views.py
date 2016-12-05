@@ -7,10 +7,10 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.contrib import messages
-
-from .forms import LoginForm, RegisterForm, UpdateForm, UpdateStudentForm, UpdateProfessorForm, UpdateEngineerForm
-from .models import MyUser, Student, Professor, Engineer
 from django.core.urlresolvers import reverse 
+from .forms import LoginForm, RegisterForm, UpdateForm, UpdateStudentForm, UpdateProfessorForm, UpdateEngineerForm
+from .models import MyUser, Student, Professor, Engineer,Platform,Skill
+from CompaniesApp.models import Company
 
 # Auth Views
 
