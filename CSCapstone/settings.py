@@ -40,12 +40,14 @@ INSTALLED_APPS = [
     'CSCapstoneApp',
     'ProjectsApp',
     'CompaniesApp',
+    'tinymce',
     'AuthenticationApp',
     'GroupsApp',
 	'UniversitiesApp',
     'CommentsApp',
-    'TeacherApp'
+    'TeacherApp',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -75,7 +77,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'CSCapstone.wsgi.application'
+
 
 
 # Database
@@ -135,3 +137,16 @@ AUTH_USER_MODEL = 'AuthenticationApp.MyUser'
 
 #Use @login_required for functions that require authenticated users
 LOGIN_URL = "/login"
+
+
+
+WSGI_APPLICATION = 'CSCapstone.wsgi.application'
+TINYMCE_JS_URL = 'http://debug.example.org/tiny_mce/tiny_mce_src.js'
+TINYMCE_DEFAULT_CONFIG = {
+    'plugins': "table,spellchecker,paste,searchreplace",
+    'theme': "advanced",
+    'cleanup_on_startup': True,
+    'custom_undo_redo_levels': 10,
+}
+# TINYMCE_SPELLCHECKER = True
+# TINYMCE_COMPRESSOR = True

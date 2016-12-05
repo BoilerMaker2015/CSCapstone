@@ -7,10 +7,16 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.contrib import messages
+from django.core.urlresolvers import reverse
 
 from .forms import LoginForm, RegisterForm, UpdateForm, UpdateStudentForm, UpdateProfessorForm, UpdateEngineerForm
-from .models import MyUser, Student, Professor, Engineer
-from django.core.urlresolvers import reverse 
+
+from .models import MyUser, Student, Professor, Engineer,Platform,Skill
+from CompaniesApp.models import Company
+
+
+
+
 
 # Auth Views
 
@@ -75,7 +81,7 @@ def auth_register(request):
             new_user.is_student = True
             new_user.save()
             #creating the student object with the default attributes, put it as NONE first as you need to initialise it
-            new_student = Student(user=new_user,major=None,skills=None)
+            new_student = Student(user=new_user,major=None)
             new_student.save()
         elif choice == 'Professor':
             new_user.is_professor = True
@@ -120,15 +126,48 @@ def update_profile(request):
 
     # print(request.user.student.pk)
     #print(request.user.student.year)
+
+
     if request.user.is_student:
         form_2 = UpdateStudentForm(request.POST or None, instance = request.user.student)
         if form.is_valid() and form_2.is_valid():
             #print("the pk of the user is " + request.user.id)
             # have to get the child object of the user first (either "Student" / "professor" or "enginneer")
+            #print(form_2.cleaned_data['testing'])
             student = request.user.student
             student.major = form_2.cleaned_data['major']
-            student.skills = form_2.cleaned_data['skills']
-            #print(student.skills)
+
+            student.platform.clear()
+            student.save()
+            for i in form_2.cleaned_data['platform']:
+                #plat = Platform(platform=i)
+                #plat.save()
+
+                plat = Platform.objects.get(platform=i)
+
+               # print(type(platform))
+                #print(type(i))
+
+                #platform.save()
+
+                student.platform.add(plat)
+                student.save()
+
+            for i in form_2.cleaned_data['skill']:
+                #skill = Skill(skill=i)
+                #skill.save()
+                student.skill.add(i)
+                student.save()
+
+
+
+            #platform = Platform(platform=form_2.cleaned_data[''])
+
+
+            #Skill = form_2.cleaned_data['skills']
+           # student.skills = form_2.cleaned_data['skills']
+           # student.platforms = form_2.cleaned_data['platforms']
+            #print(form_2.cleaned_data['platforms'])
 
             student.year = form_2.cleaned_data['year']
 
@@ -143,7 +182,9 @@ def update_profile(request):
             messages.success(request, 'Success, your profile was saved!')
 
     elif request.user.is_professor:
+
         if form.is_valid() and form_2.is_valid():
+
             professor = request.user.professor
             professor.university = form_2.cleaned_data['university']
             professor.teachClass.create(title = form_2.cleaned_data['teachClass'])
@@ -155,12 +196,17 @@ def update_profile(request):
             return HttpResponseRedirect(reverse('TeacherApp:index'))
 
     elif request.user.is_engineer:
+
         if form.is_valid() and form_2.is_valid():
             engineer = request.user.engineer
-            engineer.company = form_2.cleaned_data['company']
+            company = Company.objects.get(pk=form_2.cleaned_data['company'].id)
+            company.members.add(request.user)
+            #engineer.company = form_2.cleaned_data['company']
+
             engineer.position = form_2.cleaned_data['position']
             engineer.phone = form_2.cleaned_data['phone']
             form.save()
+            form_2.save()
             engineer.save()
             messages.success(request, 'Success, your profile was saved!')
 
