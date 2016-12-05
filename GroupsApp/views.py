@@ -52,7 +52,7 @@ def compare_group_project(group,project):
     for platform in required_platform_list:
         if platform not in group_platform_list:
             print(platform)
-            print("asdsadsadsadasdsadsa")
+            #print("asdsadsadsadasdsadsa")
             return False
 
     # for group_platform in group.group_platform.all():
@@ -113,7 +113,7 @@ def recommendProject(request):
             'projects': matched_project_list,
             'groupId' : id
         }
-        return  render(request, "recommendProject.html", context)
+        return  render(request, "recommendProjects.html", context)
         
     # render error page if user is not logged in
     return render(request, 'autherror.html')
@@ -197,6 +197,7 @@ def joinGroup(request):
             context = {
                 'group' : in_group,
                 'userIsMember': True,
+            
             }
             return render(request, 'group.html', context)
         else:
@@ -263,8 +264,29 @@ def applyProject(request, groupId, projectId):
     project = Project.objects.get(pk=projectId)
     group = models.Group.objects.get(pk=groupId)
     group.project = project
-    print("project desctip:" + group.project.desctiption)
+    print("project desctip:" + group.project.description)
     group.save()
+    # matched_project_list = 
+    # context ={
+    #     'projects': matched_project_list,
+    #     'groupId' : id
+    # }
+    print("goroup project:" + group.project.name)
+    
+    
+    in_group = models.Group.objects.get(pk=groupId)
+    is_member = in_group.members.filter(email__exact=request.user.email)
+    recommended_project_applied = in_group.project.name
+
+    context = {
+        'group' : in_group,
+        'userIsMember': True,
+        'project_applied' : recommended_project_applied,
+    }
+    #return HttpResponse("asdsadsas")
+    return render(request,'group.html',context)
+    #return redirect('group:Group',context)
+    #return redirect('group:G')
 
 
 

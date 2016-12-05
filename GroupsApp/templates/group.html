@@ -11,9 +11,13 @@
 			<a href="/group/unjoin?name={{ group.name }}" class="btn btn-default">Unjoin this Group</a>
                 <a href="/group/platform?name={{ group.name }}" class="btn btn-default">platform</a>
                 <a href="/group/skill?name={{ group.name }}" class="btn btn-default">skills</a>
-            <a href="/group/recommend?id={{ group.id }}" class="btn btn-default">Recommend me a Project</a>
+            <a href="/group/recommend?id={{ group.id }}" class="btn btn-default">recommend me a Project</a>
+            {% if project_applied  %}
+            <h4>applied Project: {{ project_applied }}<h4>
+            {% endif %}
 			{% else %}
 			<a href="/group/join?name={{ group.name }}" class="btn btn-default">Join this Group</a>
+
 			{% endif %}
 
 		</div>
