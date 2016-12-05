@@ -6,7 +6,7 @@ from django.contrib import admin
 from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
-from .models import MyUser, Student, Professor, Engineer
+from .models import MyUser, Student, Professor, Engineer, Platform, Skill
 from .forms import AdminUserCreationForm, UserChangeForm
 
 class UserAdmin(BaseUserAdmin):
@@ -45,3 +45,5 @@ admin.site.register(Student)
 admin.site.unregister(Group)
 admin.site.register(Professor)
 admin.site.register(Engineer)
+admin.site.register(Platform)
+admin.site.register(Skill)

@@ -3,7 +3,8 @@ Created by Naman Patwari on 10/4/2016.
 """
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django import forms
-from .models import MyUser,Student,Engineer,Professor
+from .models import MyUser,Student,Engineer,Professor,Platform,Skill
+from CompaniesApp.models import Company
 from tinymce.widgets import TinyMCE
 from tinymce import models as tinymce_models
 
@@ -102,29 +103,36 @@ class UpdateStudentForm(forms.ModelForm):
         ('Senior', 'Senior'),
     )
 
-    skill_choice = (
+    platform_choice = (
         ('IOS Programming', 'IOS Programming'),
-        ('Algorithms', 'Data Structure and Algorithms'),
         ('Android Programming', 'Android Programming'),
         ('Web Development', 'Web Development'),
     )
 
-    skills = forms.MultipleChoiceField(
-        required=False,
-        widget=forms.CheckboxSelectMultiple,
-        choices=skill_choice,
-    )
-    year = forms.ChoiceField(label="Year",choices=year_choice)
+
+    platform = forms.MultipleChoiceField(label="Platform",choices=platform_choice,widget=forms.CheckboxSelectMultiple)
+
+    #year = forms.CharField(widget=TinyMCE)
+
+    year = forms.ChoiceField(label="Year",choices=year_choice,required=False)
+    #skills = forms.CharField(max_length=100,required=False)
+
+    #testing = forms.CharField(max_length=100,widget=forms.Textarea)
+    #testing = forms.CharField(widget=TinyMCE(attrs={'cols': 3, 'rows': 3}))
+    #testing = forms.CharField(max_length=100,required=False)
 
     # favorite_colors = forms.MultipleChoiceField(
     #     required=False,
     #     widget=forms.CheckboxSelectMultiple,
     #     choices=year_choice,
     # )
+    #platform = forms.ChoiceField(label="Platform",choices=platform_choice,required=False)
+    # platform = forms.MultipleChoiceField(label="Platform",choices=platform_choice,
+    #                                        widget=forms.CheckboxSelectMultiple)
 
     class Meta:
         model = Student
-        fields = ('major', 'skills','year')
+        fields = ('major','year', 'platform', 'skill')
 
 
 
@@ -139,7 +147,17 @@ class UpdateProfessorForm(forms.ModelForm):
 
 """Update Engineer Form"""
 class UpdateEngineerForm(forms.ModelForm):
+    # PART_CHOICES = (
+    #     ('Student', 'Student'),
+    #     ('Professor', 'Professor'),
+    #     ('Engineer', 'Engineer'),)
+    #company = forms.CharField(widget=TinyMCE(attrs={'cols': 80, 'rows': 30}))
+    #company = forms.CharField(max_length=100)
+    company = forms.CharField(widget=TinyMCE)
 
+
+    #choice = forms.ChoiceField(label="Choice", choices=Company.objects.all())
+    #something = forms.CharField(max_length=100)
 
     class Meta:
         model = Engineer
@@ -190,6 +208,8 @@ class UserChangeForm(forms.ModelForm):
     password hash display field.
     """
     password = ReadOnlyPasswordHashField()
+
+
 
     class Meta:
         model = MyUser

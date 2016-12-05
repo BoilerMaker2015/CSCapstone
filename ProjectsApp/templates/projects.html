@@ -1,37 +1,44 @@
 {% extends "body.html" %}
 
 {% block content %}
-	
-	<!-- Content -->
-	<div class="container" role="main">
-		<div class="table-responsive">
-			<table class="table table-striped sortable">
-				<thead>
-					<tr>
-						<th>Project Name</th>
-						<th>Project Description</th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for project in projects %}
-					<tr>
-						<td><a href="/project?name={{ project.name }}">{{ project.name }}</a></td>
-						<td>{{ project.description }}</td>
-                         <td>
-{#                             <a href="/" class="btn btn-default btn-sm btn-favorite" role="button">#}
-{#                                <span class="glyphicon glyphicon-star {% if album.is_favorite %}active{% endif %}"></span>#}
-{#                                    <span class="glyphicon glyphicon-star "></span>#}
-{#                         </a>#}
 
-                             <a href="/project/bookmarkProject?name={{ project.name }}" class="btn btn-default">BookMark</a>
+    <!-- Content -->
+    <div class="container" role="main">
+        <div class="table-responsive">
+            <table class="table table-striped sortable">
+                <thead>
+                <tr>
+                    <th>Project Name</th>
+                    <th>Project Description</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for project in projects %}
+                    <tr>
+                        <td><a href="/project?id={{ project.id }}">{{ project.name }}</a></td>
+                        <td>{{ project.description }}</td>
+                        <td>
 
-                         </td>
+                            {% if request.user in project.bookmarkMembers.all %}
+                                <a href="/project/unbookmarkProject?id={{ project.id }}" class="btn-sm btn-favorite"
+                                   role="button">
+                                    <span class="glyphicon glyphicon-star active"></span>
+                                </a>
+                            {% else %}
+                                <a href="/project/bookmarkProject?id={{ project.id }}"
+                                   class="btn btn-default btn-favorite" role="button">
+                                    <span class="glyphicon glyphicon-star"></span>
+                                </a>
+                            {% endif %}
 
-					</tr>
-					{% endfor %}
-				</tbody>
-			</table>
-		</div>
-	</div>
+
+                        </td>
+
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 
 {% endblock %}

@@ -1,14 +1,20 @@
 {% extends "body.html" %}
 
 {% block content %}
-	
+
 	<!-- Content -->
 	<div class="container theme-showcase" role="main">
         <form role="form" action="" method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+            <head>
+                  {{ form.as_p }}
+            </head>
+
         <button type="submit">Submit</button>
     </form>
 	</div>
 
+{#            <head>#}
+{#                  {{ form.as_p }}#}
+{#            </head>#}
 {% endblock %}

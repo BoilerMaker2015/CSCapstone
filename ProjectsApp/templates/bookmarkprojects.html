@@ -1,0 +1,31 @@
+{% extends "body.html" %}
+{% block content %}
+
+	<!-- Content -->
+    <!-- view bookmark projects only -->
+	<div class="container" role="main">
+		<div class="table-responsive">
+			<table class="table table-striped sortable">
+				<thead>
+					<tr>
+						<th>BookMarked Project Name</th>
+						<th>Project Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for project in projects %}
+					<tr>
+                        {% if request.user in project.bookmarkMembers.all  %}
+						<td><a href="/project?id={{ project.id }}">{{ project.name }}</a></td>
+						<td>{{ project.description }}</td>
+
+                    {% endif %}
+
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+{% endblock %}

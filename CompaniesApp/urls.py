@@ -6,6 +6,7 @@ from django.conf.urls import url
 
 from . import views
 
+app_name = 'company'
 urlpatterns = [
     url(r'^company/all$', views.getCompanies, name='Companies'),
 	url(r'^company/form$', views.getCompanyForm, name='CompanyForm'),

@@ -3,7 +3,8 @@ CompaniesApp Views
 
 Created by Jacob Dunbar on 10/2/2016.
 """
-from django.shortcuts import render
+from django.shortcuts import render,redirect
+from django.contrib import messages
 
 from . import models
 from . import forms
@@ -33,7 +34,16 @@ def getCompany(request):
 
 def getCompanyForm(request):
     if request.user.is_authenticated():
-        return render(request, 'companyform.html')
+        if request.user.is_engineer:
+            return render(request, 'companyform.html')
+        else:
+            messages.error(request, 'You are not an Engineer. You can\'t join a company')
+            # return redirect(request,'company:Companies')
+            companies_list = models.Company.objects.all()
+            context = {
+                'companies': companies_list,
+            }
+            return render(request, 'companies.html', context)
     # render error page if user is not logged in
     return render(request, 'autherror.html')
 
@@ -63,17 +73,28 @@ def getCompanyFormSuccess(request):
 
 def joinCompany(request):
     if request.user.is_authenticated():
-        in_name = request.GET.get('name', 'None')
-        in_company = models.Company.objects.get(name__exact=in_name)
-        in_company.members.add(request.user)
-        in_company.save();
-        request.user.company_set.add(in_company)
-        request.user.save()
-        context = {
-            'company' : in_company,
-            'userIsMember': True,
-        }
-        return render(request, 'company.html', context)
+        if request.user.is_engineer:
+            in_name = request.GET.get('name', 'None')
+            in_company = models.Company.objects.get(name__exact=in_name)
+            in_company.members.add(request.user)
+            in_company.save();
+            request.user.company_set.add(in_company)
+            request.user.save()
+            context = {
+                'company' : in_company,
+                'userIsMember': True,
+            }
+            return render(request, 'company.html', context)
+        else:
+            messages.error(request, 'You are not an Engineer. You can\'t join a company')
+            # return redirect(request,'company:Companies')
+            companies_list = models.Company.objects.all()
+            context = {
+                'companies': companies_list,
+            }
+            return render(request, 'companies.html', context)
+
+
     return render(request, 'autherror.html')
     
 def unjoinCompany(request):
