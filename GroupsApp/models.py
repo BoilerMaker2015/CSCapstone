@@ -17,7 +17,7 @@ class Group(models.Model):
     group_skills = models.ManyToManyField(Skill)
     group_platform = models.ManyToManyField(Platform)
 
-    project = models.ForeignKey(Project)
+    project = models.ForeignKey(Project, blank=True, null=True)
 
     def __str__(self):
         return self.name
