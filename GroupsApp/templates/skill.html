@@ -1,0 +1,25 @@
+{% extends "body.html" %}
+
+{% block content %}
+
+	<div class="container">
+		<div class="table-responsive">
+			<table class="table table-striped sortable">
+
+				<thead>
+					<tr>
+						<th>skills</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for item in group.group_skills.all %}
+					<tr>
+						<td>{{ item }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+{% endblock %}

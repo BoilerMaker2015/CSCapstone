@@ -1,11 +1,12 @@
 """GroupsApp Views
 Created by Naman Patwari on 10/10/2016.
 """
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,HttpResponse
 from django.contrib import messages
 from . import models
 from . import forms
 import re
+from ProjectsApp.models import Project
 from AuthenticationApp.models import MyUser,Student,Professor,Engineer
 from ProjectsApp.models import Project
 def getGroups(request):
@@ -15,6 +16,101 @@ def getGroups(request):
             'groups' : groups_list,
         }
         return render(request, 'groups.html', context)
+    # render error page if user is not logged in
+    return render(request, 'autherror.html')
+
+def compare_group_project(group,project):
+    required_skill_list = []
+    required_platform_list = []
+
+    group_platform_list = []
+    group_skill_list = []
+    #print(group.name)
+    for required_skill in project.project_skill.all():
+        required_skill_list.append(required_skill.skill)
+    for required_platform in project.project_platform.all():
+        required_platform_list.append(required_platform.platform)
+
+
+
+        #group_skill_list.append(group_skill.skill)
+
+    for group_platform in group.group_platform.all():
+        group_platform_list.append(group_platform.platform)
+    for group_skill in group.group_skills.all():
+        group_skill_list.append(group_skill.skill)
+
+    # for skill in group_skill_list:
+    #     if skill not in required_skill_list:
+    #         print("sadsadsa")
+    #         return False
+    for skill in required_skill_list:
+        if skill not in group_skill_list:
+            print("asdsa")
+            return False
+
+    for platform in required_platform_list:
+        if platform not in group_platform_list:
+            print(platform)
+            print("asdsadsadsadasdsadsa")
+            return False
+
+    # for group_platform in group.group_platform.all():
+    #     if group_platform.platform not in required_platform_list:
+    #         print("the false is " + group_platform.platform)
+    #         print('sa')
+    #         return False
+    # for group_skill in group.group_skills.all():
+    #     if group_skill.skill not in required_skill_list:
+    #         print("ww")
+    #         return False
+
+    #
+    # for matched_skill in group.group_skills.all():
+    #     if matched_skill not in project.project_skill.all():
+    #         return False
+    # for matched_platform in group.group_platform.all():
+    #     if matched_platform not in project.project_platform.all():
+    #         return False
+    return True
+
+
+
+
+
+
+def recommendProject(request):
+    if request.user.is_authenticated():
+
+        id = request.GET.get('id','None')
+        print(id)
+        #print("asdsa")
+
+        current_group = models.Group.objects.get(pk=id)
+        #compare_group_project(current_group,Project.objects.get(name='wakao'))
+
+        #print(Project.objects.all())
+        project_all = Project.objects.all()
+        matched_project_list = []
+
+        for project in Project.objects.all():
+            if compare_group_project(current_group,project):
+                matched_project_list.append(project)
+
+        # print("the recommended projects are")
+        # for i in matched_project_list:
+        #     print(i)
+
+
+        #this_group = models.Group.objects.get(pk=)
+        # groups_list = models.Group.objects.all()
+        # context = {
+        #     'groups': groups_list,
+        # }
+        # return render(request, 'groups.html', context)
+        print(matched_project_list)
+
+        return HttpResponse("sadsa")
     # render error page if user is not logged in
     return render(request, 'autherror.html')
 
@@ -120,6 +216,24 @@ def unjoinGroup(request):
         }
         return render(request, 'group.html', context)
     return render(request, 'autherror.html')
+
+def GPlatform(request):
+    in_name = request.GET.get('name', 'None')
+    in_group = models.Group.objects.get(name__exact=in_name)
+    context = {
+        'group' : in_group,
+        'userIsMember': False,
+    }
+    return render(request, 'platform.html', context)
+
+def GSkill(request):
+    in_name = request.GET.get('name', 'None')
+    in_group = models.Group.objects.get(name__exact=in_name)
+    context = {
+        'group' : in_group,
+        'userIsMember': False,
+    }
+    return render(request, 'skill.html', context)
 
 
 def update_group(group):
