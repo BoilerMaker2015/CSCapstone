@@ -18,7 +18,6 @@ urlpatterns = [
     url(r'^group/(?P<groupId>\d+)/project/(?P<projectId>\d+)', views.applyProject, name = 'ApplyProject'), 
     
     url(r'^group$', views.getGroup, name='Group'),
-
     url(r'^group/platform$', views.GPlatform, name='GPlatform'),
     url(r'^group/skill$', views.GSkill, name='GSkill'),
     url(r'^group/recommend$', views.recommendProject, name='Recommend'),

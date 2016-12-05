@@ -109,8 +109,12 @@ def recommendProject(request):
         # }
         # return render(request, 'groups.html', context)
         print(matched_project_list)
-
-        return HttpResponse("sadsa")
+        context ={
+            'projects': matched_project_list,
+            'groupId' : id
+        }
+        return  render(request, "recommendProject.html", context)
+        
     # render error page if user is not logged in
     return render(request, 'autherror.html')
 
