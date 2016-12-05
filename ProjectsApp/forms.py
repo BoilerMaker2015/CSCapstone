@@ -22,9 +22,9 @@ class ProjectForm(forms.Form):
 
     #project_platform = forms.ChoiceField(required=False)
     project_platform = forms.MultipleChoiceField(label="Platform", choices=platform_choice,
-                                          widget=forms.CheckboxSelectMultiple)
+                                          widget=forms.CheckboxSelectMultiple,required=False)
     project_skill = forms.MultipleChoiceField(label="Skill", choices=skill_choice,
-                                          widget=forms.CheckboxSelectMultiple)
+                                          widget=forms.CheckboxSelectMultiple,required=False)
 
     class Meta:
         model = Project

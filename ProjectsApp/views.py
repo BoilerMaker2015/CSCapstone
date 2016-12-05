@@ -65,8 +65,7 @@ def addProject(request):
     if user_status == True:
         if request.method == 'POST':
             form = form_class(data=request.POST)
-            print("sadssssssa")
-            print("sadssssssa")
+
             if form.is_valid():
                 # print("i am here")
                 name = request.POST.get('name')
@@ -85,18 +84,25 @@ def addProject(request):
 
 
                 new_project.save()
+                if form.cleaned_data['project_platform'] is not None:
+                    platforms = form.cleaned_data['project_platform']
+                #print(platforms)
+                if platforms is not None:
+                    for i in platforms:
+                        platform = Platform.objects.get(platform=i)
+                        new_project.project_platform.add(platform)
+                        new_project.save()
+                if form.cleaned_data['project_skill'] is not None:
+                    skills = form.cleaned_data['project_skill']
+                if skills is not None:
+                    for i in skills:
+                        skill = Skill.objects.get(skill=i)
+                        new_project.project_skill.add(skill)
+                        new_project.save()
 
-                platforms = form.cleaned_data['project_platform']
-                for i in platforms:
-                    platform = Platform.objects.get(platform=i)
-                    new_project.project_platform.add(platform)
-                    new_project.save()
-                skills = form.cleaned_data['project_skill']
-                for i in skills:
-                    skill = Skill.objects.get(skill=i)
-                    new_project.project_skill.add(skill)
-                    new_project.save()
-
+                return redirect('project:Projects')
+                #return
+            else:
                 return redirect('project:Projects')
         else:
             # print("asdas")

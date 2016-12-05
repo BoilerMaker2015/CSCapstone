@@ -37,25 +37,33 @@ def compare_group_project(group,project):
 
     for group_platform in group.group_platform.all():
         group_platform_list.append(group_platform.platform)
-    for group_skill in group.group_skill.all():
+    for group_skill in group.group_skills.all():
         group_skill_list.append(group_skill.skill)
 
-    for skill in group_skill_list:
-        if skill not in required_skill_list:
-            print("sadsadsa")
+    # for skill in group_skill_list:
+    #     if skill not in required_skill_list:
+    #         print("sadsadsa")
+    #         return False
+    for skill in required_skill_list:
+        if skill not in group_skill_list:
+            print("asdsa")
             return False
 
-    
+    for platform in required_platform_list:
+        if platform not in group_platform_list:
+            print(platform)
+            print("asdsadsadsadasdsadsa")
+            return False
 
-    for group_platform in group.group_platform.all():
-        if group_platform.platform not in required_platform_list:
-            print("the false is " + group_platform.platform)
-            print('sa')
-            return False
-    for group_skill in group.group_skills.all():
-        if group_skill.skill not in required_skill_list:
-            print("ww")
-            return False
+    # for group_platform in group.group_platform.all():
+    #     if group_platform.platform not in required_platform_list:
+    #         print("the false is " + group_platform.platform)
+    #         print('sa')
+    #         return False
+    # for group_skill in group.group_skills.all():
+    #     if group_skill.skill not in required_skill_list:
+    #         print("ww")
+    #         return False
 
     #
     # for matched_skill in group.group_skills.all():
@@ -76,18 +84,18 @@ def recommendProject(request):
 
         id = request.GET.get('id','None')
         print(id)
-        print("asdsa")
+        #print("asdsa")
 
         current_group = models.Group.objects.get(pk=id)
-        compare_group_project(current_group,Project.objects.get(name='project2'))
+        #compare_group_project(current_group,Project.objects.get(name='wakao'))
 
         #print(Project.objects.all())
         project_all = Project.objects.all()
         matched_project_list = []
 
-        # for project in Project.objects.all():
-        #     if compare_group_project(current_group,project):
-        #         matched_project_list.append(project)
+        for project in Project.objects.all():
+            if compare_group_project(current_group,project):
+                matched_project_list.append(project)
 
         # print("the recommended projects are")
         # for i in matched_project_list:
