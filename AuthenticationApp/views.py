@@ -87,7 +87,7 @@ def auth_register(request):
             new_user.is_professor = True
             new_user.save()
 
-            new_professor = Professor(user=new_user, university = None, teachClass = None, phone = None) # note: maybe we do not need to give the special attributes, since it is null : true.)
+            new_professor = Professor(user=new_user, university = None, phone = None) # note: maybe we do not need to give the special attributes, since it is null : true.)
             new_professor.save()
         elif choice == 'Engineer':
             new_user.is_engineer = True
