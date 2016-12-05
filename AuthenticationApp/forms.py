@@ -142,7 +142,7 @@ class UpdateProfessorForm(forms.ModelForm):
 
     class Meta:
         model = Professor
-        fields = ('university', 'teachClass', 'phone')
+        fields = ('university', 'phone', 'teachClass')
 
 
 """Update Engineer Form"""

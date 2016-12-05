@@ -1,0 +1,18 @@
+{% extends "body.html" %}
+{% block content %}
+<!-- Content -->
+<div class="container" role="main">
+    <div class="panel panel-default">
+       
+        <form method="post" enctype="multipart/form-data" action="{% url 'TeacherApp:addClass' %}" class="panel-body validate">
+        {% csrf_token %}
+             <label for="Teacher">add a class</label>
+
+              <input type="text" width="50%" name="title" id="title" placeholder="class title" class="form-control" data-bvalidator="required" data-bvalidator-msg="Comment Required">
+              <br>
+
+            <input type="submit" value="Submit" class="btn btn-primary">
+        </form>
+    </div>
+</div>
+{% endblock %}

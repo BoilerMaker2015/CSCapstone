@@ -1,0 +1,38 @@
+{% extends "body.html" %}
+<!-- Content -->
+{%  block content %}
+<div class="container" role="main">
+    <div class="table-responsive">
+        <table class="table table-striped sortable">
+            <thead>
+                <tr>
+                  <th style="width: 20%"> class title</th>
+                  <th style="width: 20%"> view students</th>  
+                </tr>
+            </thead>
+            <tbody>
+              <!--  <script type="text/javascript">
+                 alert(class_list.length);
+               </script> -->
+
+               {% for class in classList %}
+               <tr>
+                   <td>{{ class.title}}</td>
+                   <td><a href="/class/?id={{class.pk}}"> view students </a></td>
+                  
+               </tr>
+               {% endfor %}
+            </tbody>
+        </table>
+      
+
+           <a href="{% url 'TeacherApp:addClass' %}"> add a class  </a>
+
+    
+    </div>
+</div>
+{% endblock %}
+
+
+<!--<button type="button" onclick="location.href = {% url 'TeacherApp:addClass' %}"> add a class </button> -->
+<!-- limit user is professor deal with it later-->

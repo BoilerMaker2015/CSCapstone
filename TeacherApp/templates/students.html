@@ -1,0 +1,36 @@
+{% extends "body.html" %}
+<!-- Content -->
+{%  block content %}
+<div class="container" role="main">
+    <div class="table-responsive">
+        <table class="table table-striped sortable">
+            <thead>
+                <tr>
+                  <th style="width: 20%"> first name</th>
+                  <th style="width: 20%"> last name</th> 
+                  <th style="width: 20%"> email </th>  
+                  <th style="width: 20%">  major </th> 
+                  <th style="width: 20%">  year </th> 
+                </tr>
+            </thead>
+            <tbody>
+              <!--  <script type="text/javascript">
+                 alert(class_list.length);
+               </script> -->
+
+               {% for student in studentList %}
+               <tr>
+                   <td>{{ student.user.first_name}}</td>
+                   <td>{{ student.user.last_name}}</td>
+                   <td>{{ student.user.email}}</td>
+                   <td>{{ student.major}}</td>
+                   <td>{{ student.year}}</td>
+                   <td><a href="{% url 'TeacherApp:removeStudent' class_id student.pk  %}"> remove </a></td>                 
+               </tr>
+               {% endfor %}
+            </tbody>
+        </table>
+        <a href="{% url 'TeacherApp:addStudent' class_id %}"> add a student</a>
+    </div>
+</div>
+{% endblock %}

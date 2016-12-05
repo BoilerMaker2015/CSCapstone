@@ -7,10 +7,15 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.contrib import messages
+from django.core.urlresolvers import reverse
 
 from .forms import LoginForm, RegisterForm, UpdateForm, UpdateStudentForm, UpdateProfessorForm, UpdateEngineerForm
+
 from .models import MyUser, Student, Professor, Engineer,Platform,Skill
 from CompaniesApp.models import Company
+
+
+
 
 
 # Auth Views
@@ -27,7 +32,16 @@ def auth_login(request):
         if user is not None:
             messages.success(request, 'Success! Welcome, ' + (user.first_name or ""))
             login(request, user)
-            return render(request, 'body.html')
+            '''
+            if request.user.is_professor:
+                # redirect to teacher index
+                return HttpResponseRedirect(reverse('TeacherApp:index'))
+            '''
+
+            return render(request, 'body.html')      
+           
+
+            
         else:
             messages.warning(request, 'Invalid username or password.')
 
@@ -173,11 +187,13 @@ def update_profile(request):
 
             professor = request.user.professor
             professor.university = form_2.cleaned_data['university']
-            professor.teachClass = form_2.cleaned_data['teachClass']
+            professor.teachClass.create(title = form_2.cleaned_data['teachClass'])
             professor.phone = form_2.cleaned_data['phone']
             form.save()
             professor.save()
             messages.success(request, 'Success, your profile was saved!')
+            messages.success(request, 'you are a professor')
+            return HttpResponseRedirect(reverse('TeacherApp:index'))
 
     elif request.user.is_engineer:
 
