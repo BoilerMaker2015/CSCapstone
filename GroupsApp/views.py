@@ -31,9 +31,9 @@ def getGroup(request):
        #      student_platforms_list.append(i)
         student_skills_list = []
         student_platforms_list = []
-        for i in in_group.group_skills:
+        for i in in_group.group_skills.all():
             student_skills_list.append(i)
-        for i in in_group.group_platform:
+        for i in in_group.group_platform.all():
             student_platforms_list.append(i)
 
         context = {
