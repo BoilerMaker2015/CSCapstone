@@ -103,11 +103,13 @@ class UpdateStudentForm(forms.ModelForm):
         ('Senior', 'Senior'),
     )
 
-    platform_choice = (
-        ('IOS Programming', 'IOS Programming'),
-        ('Android Programming', 'Android Programming'),
-        ('Web Development', 'Web Development'),
-    )
+    platform_choice = []
+    counter = 0
+
+    for i in Platform.objects.all():
+        choice = (i.platform, i.platform)
+        platform_choice.insert(counter, choice)
+        counter = counter + 1
 
 
     platform = forms.MultipleChoiceField(label="Platform",choices=platform_choice,widget=forms.CheckboxSelectMultiple)
