@@ -1,0 +1,32 @@
+{% extends "body.html" %}
+
+{% block content %}
+
+	<!-- Content -->
+	<div class="container" role="main">
+		<div class="table-responsive">
+			<table class="table table-striped sortable">
+				<thead>
+					<tr>
+						<th>Project</th>
+						<th>Description</th>
+   					    <th>Require Platform</th>
+   					    <th>Require skill</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for project in projects%}
+					<tr>
+						<td>{{ project.name }}</td>
+						<td>{{ project.description }}</td>
+                    
+                         
+						<td><a href="{% url 'group:ApplyProject' groupId project.pk %}">apply project</a></td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+{% endblock %}
