@@ -7,6 +7,7 @@ from .forms import ProjectForm
 from django.http import HttpResponseRedirect, HttpResponse
 from django.utils import timezone
 from django.contrib import messages
+from AuthenticationApp.models import Platform,Skill
 
 
 from . import models
@@ -55,19 +56,37 @@ def getProject(request):
 def addProject(request):
     form_class = ProjectForm
 
+
     user_status = request.user.is_engineer
     if user_status == True:
         if request.method == 'POST':
             form = form_class(data=request.POST)
-
+            print("sadssssssa")
+            print("sadssssssa")
             if form.is_valid():
                 # print("i am here")
                 name = request.POST.get('name')
                 description = request.POST.get('description')
                 time = timezone.now()
+                #platform = request.POST.get('project_platform')
+                #print(platform)
+
+
+
+
+                #print(platform)
+                #print(type(platform))
 
                 new_project = Project(name=name, description=description, created_at=time, updated_at=time)
+
+
                 new_project.save()
+
+                platform = form.cleaned_data['project_platform']
+                for i in platform:
+                    platform = Platform.objects.get(platform=i)
+                    new_project.project_platform.add(platform)
+                    new_project.save()
 
                 return redirect('project:Projects')
         else:

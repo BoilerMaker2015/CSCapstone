@@ -22,6 +22,7 @@ class Project(models.Model):
     # TODO Task 3.5: Add fields for project qualifications (minimum required: programming language, years of experience, speciality)
     project_platform = models.ManyToManyField(Platform)
     project_skill = models.ManyToManyField(Skill)
+    
 
     def __str__(self):
         return self.name

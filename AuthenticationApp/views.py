@@ -123,16 +123,20 @@ def update_profile(request):
             student = request.user.student
             student.major = form_2.cleaned_data['major']
 
-
+            student.platform.clear()
+            student.save()
             for i in form_2.cleaned_data['platform']:
                 #plat = Platform(platform=i)
                 #plat.save()
+
+                plat = Platform.objects.get(platform=i)
+
                # print(type(platform))
                 #print(type(i))
 
                 #platform.save()
 
-                student.platform.add(i)
+                student.platform.add(plat)
                 student.save()
 
             for i in form_2.cleaned_data['skill']:
