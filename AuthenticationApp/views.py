@@ -124,6 +124,7 @@ def update_profile(request):
             student.major = form_2.cleaned_data['major']
             student.skills = form_2.cleaned_data['skills']
             student.platforms = form_2.cleaned_data['platforms']
+            print(form_2.cleaned_data['platforms'])
 
             student.year = form_2.cleaned_data['year']
 

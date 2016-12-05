@@ -112,6 +112,7 @@ class UpdateStudentForm(forms.ModelForm):
 
     platforms = forms.MultipleChoiceField(label="Platform",choices=platform_choice,widget=forms.CheckboxSelectMultiple)
 
+    #year = forms.CharField(widget=TinyMCE)
 
     year = forms.ChoiceField(label="Year",choices=year_choice,required=False)
 
