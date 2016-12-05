@@ -115,7 +115,7 @@ class UpdateStudentForm(forms.ModelForm):
     #year = forms.CharField(widget=TinyMCE)
 
     year = forms.ChoiceField(label="Year",choices=year_choice,required=False)
-    skills = forms.CharField(max_length=100,required=False)
+    #skills = forms.CharField(max_length=100,required=False)
 
     #testing = forms.CharField(max_length=100,widget=forms.Textarea)
     #testing = forms.CharField(widget=TinyMCE(attrs={'cols': 3, 'rows': 3}))
@@ -126,10 +126,13 @@ class UpdateStudentForm(forms.ModelForm):
     #     widget=forms.CheckboxSelectMultiple,
     #     choices=year_choice,
     # )
+    #platform = forms.ChoiceField(label="Platform",choices=platform_choice,required=False)
+    # platform = forms.MultipleChoiceField(label="Platform",choices=platform_choice,
+    #                                        widget=forms.CheckboxSelectMultiple)
 
     class Meta:
         model = Student
-        fields = ('major','year','platforms','skills')
+        fields = ('major','year', 'platform', 'skill')
 
 
 

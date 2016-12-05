@@ -67,7 +67,7 @@ def auth_register(request):
             new_user.is_student = True
             new_user.save()
             #creating the student object with the default attributes, put it as NONE first as you need to initialise it
-            new_student = Student(user=new_user,major=None,skills=None)
+            new_student = Student(user=new_user,major=None)
             new_student.save()
         elif choice == 'Professor':
             new_user.is_professor = True
@@ -123,14 +123,24 @@ def update_profile(request):
             student = request.user.student
             student.major = form_2.cleaned_data['major']
 
-            skill = Skill(skill=form_2.cleaned_data['skills'])
-            skill.save()
-            skill.student.add(student)
 
-            for i in form_2.cleaned_data['platforms']:
-                platform = Platform(platform=i)
-                platform.save()
-                platform.student.add(request.user.student)
+            for i in form_2.cleaned_data['platform']:
+                #plat = Platform(platform=i)
+                #plat.save()
+               # print(type(platform))
+                #print(type(i))
+
+                #platform.save()
+
+                student.platform.add(i)
+                request.user.student.save()
+
+            for i in form_2.cleaned_data['skill']:
+                #skill = Skill(skill=i)
+                #skill.save()
+                student.skill.add(i)
+                student.save()
+
 
 
             #platform = Platform(platform=form_2.cleaned_data[''])

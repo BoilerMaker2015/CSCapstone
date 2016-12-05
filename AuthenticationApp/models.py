@@ -115,8 +115,6 @@ class Skill(models.Model):
 
     def __str__(self):  # Python 3
         return self.skill
-
-
 # def new_user_reciever(sender, instance, created, *args, **kwargs):
 #     	if created:
 
@@ -130,8 +128,8 @@ class Student(models.Model):
         on_delete=models.CASCADE,
         primary_key=True)
 
-    platform = models.ManyToManyField(models.Platform)
-    skill = models.ManyToManyField(models.Skill)
+    platform = models.ManyToManyField(Platform)
+    skill = models.ManyToManyField(Skill)
 
     #defined your own Attirubtes Here
     major = models.CharField(
