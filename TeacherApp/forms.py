@@ -10,3 +10,15 @@ class TeachClassForm(forms.Form):
         max_length = 120
  
     )   
+
+class EmailForm(forms.Form):  
+	email = forms.CharField(
+    	max_length = 120
+
+	)  
+
+class ClassForm(forms.Form):  
+    title = forms.CharField(
+        max_length = 120
+
+    )  

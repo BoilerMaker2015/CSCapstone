@@ -26,18 +26,13 @@ def auth_login(request):
         if user is not None:
             messages.success(request, 'Success! Welcome, ' + (user.first_name or ""))
             login(request, user)
-            
+            '''
             if request.user.is_professor:
                 # redirect to teacher index
                 return HttpResponseRedirect(reverse('TeacherApp:index'))
-            else:
-                return render(request, 'body.html')    
-            '''    
-            elif request.user.is_engineer:
-                return HttpResponseRedirect(reverse('EngineerApp:index'))
-            elif request.user.is_student:
-                return HttpResponseRedirect(reverse('StudentApp:index'))
-            '''    
+            '''
+
+            return render(request, 'body.html')      
            
 
             

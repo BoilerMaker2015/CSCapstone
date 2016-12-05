@@ -1,0 +1,27 @@
+{% extends "body.html" %}
+{%  block collapse %}
+     <!--
+    <ul class="nav navbar-nav">
+       
+        <li role="presentation" class="dropdown">
+
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+              Create new Group/Organization <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="/company/form">Create Company</a></li>
+                <li><a href="/university/form">Create University</a></li>
+                <li><a href="/group/form">Create Group</a></li>
+            </ul>
+        </li>
+        -->
+
+            <li><a href="{% url 'auth:UpdateProfile' %}">Update Profile</a></li>
+            <li><a href="{% url 'TeacherApp:teachClass' %}">view Classes</a></li>
+            <li><a href="{% url 'TeacherApp:index' %}"> View Students</a></li>   <!-- after finish students we will link students here -->
+            <li><a href= "{% url 'project:Projects' %}"> View Projects</a></li>
+            <li><a href="{%  url 'auth:Logout' %}">Log Out </a></li>
+
+    </ul>
+{%  endblock %}
+

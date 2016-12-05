@@ -30,7 +30,12 @@ class TeachClass(models.Model):
         max_length = 120,
         null = True,
         blank = True,
-    )   
+    )
+    
+    students = models.ManyToManyField(
+        'AuthenticationApp.Student'
+    ) 
+    
     def __str__(self):
         return self.title
      
