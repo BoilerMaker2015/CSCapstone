@@ -4,7 +4,7 @@ Created by Naman Patwari on 10/10/2016.
 """
 from django.db import models
 from AuthenticationApp.models import MyUser,Platform,Skill
-
+from ProjectsApp.models import Project
 # Create your models here.
 class Group(models.Model):
     name = models.CharField(max_length=30)
@@ -15,7 +15,7 @@ class Group(models.Model):
     group_skills = models.ManyToManyField(Skill)
     group_platform = models.ManyToManyField(Platform)
 
-    
-   
+    project = models.ForeignKey(Project)
+
     def __str__(self):
         return self.name

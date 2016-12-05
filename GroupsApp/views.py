@@ -7,7 +7,7 @@ from . import models
 from . import forms
 import re
 from AuthenticationApp.models import MyUser,Student,Professor,Engineer
-
+from ProjectsApp.models import Project
 def getGroups(request):
     if request.user.is_authenticated():
         groups_list = models.Group.objects.all()
@@ -137,5 +137,17 @@ def update_group(group):
         for platform_object in student.platform.all():
             group.group_platform.add(platform_object)
     group.save()
+
+
+
+def applyProject(request, groupId, projectId):
+    
+    project = Project.objects.get(pk=projectId)
+    group = models.Group.objects.get(pk=groupId)
+    group.project = project
+    print("project desctip:" + group.project.desctiption)
+    group.save()
+
+
 
 

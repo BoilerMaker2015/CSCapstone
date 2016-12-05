@@ -84,6 +84,7 @@ def addProject(request):
 
                 platform = form.cleaned_data['project_platform']
                 for i in platform:
+                    print("i:" + i)
                     platform = Platform.objects.get(platform=i)
                     new_project.project_platform.add(platform)
                     new_project.save()
@@ -203,4 +204,3 @@ def joinProject(request):
         messages.error(request, "You are not an Engineer.Unable to create a project")
         # return HttpResponseRedirect(request('project:Projects'))
         return redirect('project:Projects')
->>>>>>> master
