@@ -133,7 +133,7 @@ def update_profile(request):
                 #platform.save()
 
                 student.platform.add(i)
-                request.user.student.save()
+                student.save()
 
             for i in form_2.cleaned_data['skill']:
                 #skill = Skill(skill=i)
