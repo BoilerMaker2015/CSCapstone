@@ -9,6 +9,7 @@ from ProjectsApp.models import Project
 # Create your models here.
 class Group(models.Model):
     name = models.CharField(max_length=30)
+
     description = models.CharField(max_length=300)
     members = models.ManyToManyField(MyUser)
    # group_skills = models.CharField(max_length=500,default=None,null=True,blank=True)
