@@ -15,6 +15,7 @@ urlpatterns = [
     url(r'^project/bookmarkProject$',views.bookmarkProject,name='BookmarkProject'),
     url(r'^project/unbookmarkProject$',views.unbookmarkProject,name='UnBookmarkProject'),
     url(r'^project/bookmarkProjectsOnly$',views.getBookMarkProjectOnly,name='BookmarkProjectsOnly'),
+
     #url(r'^tinymce/', include('tinymce.urls')),
     
 
