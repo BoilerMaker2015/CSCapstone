@@ -12,6 +12,14 @@
 				<p>Description</p>
                     {{ project.description }}
 
+                {% for platform in project.project_platform.all %}
+                    {{ platform }}
+                {% endfor %}
+
+                {% for skill in project.project_skill.all %}
+                    {{ skill }}
+                {% endfor %}
+
 		</div>
 	</div>
 

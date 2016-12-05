@@ -16,4 +16,7 @@ urlpatterns = [
     url(r'^group/join$', views.joinGroup, name='GJoin'),
     url(r'^group/unjoin$', views.unjoinGroup, name='GUnjoin'),
     url(r'^group$', views.getGroup, name='Group'),
+    url(r'^group/platform$', views.GPlatform, name='GPlatform'),
+    url(r'^group/skill$', views.GSkill, name='GSkill'),
+    url(r'^group/recommend$', views.recommendProject, name='Recommend'),
 ]
