@@ -24,60 +24,17 @@ def getGroup(request):
         in_group = models.Group.objects.get(name__exact=in_name)
         is_member = in_group.members.filter(email__exact=request.user.email)
 
-        # student_list = in_group.members.all()
-        #user_objects = MyUser.objects.filter(id__in=[user.id for ])
-        user_list = []
-        # converting those users into a list first instead of the default Queryset object from django
-        for i in in_group.members.all():
-            user_list.append(i)
-
-        student_list = []
-        for i in user_list:
-            stud = Student.objects.get(user=i)
-            student_list.append(stud)
-
-        # appending the student skills
-        # hashset_skills = {}
-        hashset_skills = set()
-        student_skills_list = []
-        for student in student_list:
-            if student.skills not in hashset_skills:
-                hashset_skills.add(student.skills)
-                student_skills_list.append(student.skills)
-
-
-
-        print(student_skills_list)
-
-        # hashset_platform = {}
-        hashset_platform = set()
-        student_platform_list = []
-        pattern = re.compile('([^\s\w]|_)+')
-        for student in student_list:
-            # print(type(student.platforms))
-            # s = student.platforms[1:student.platforms.length]
-            s = student.platforms
-            s = s.split(",")
-            for i in s:
-                i = pattern.sub('', i)
-                i = i.lstrip()
-                # print(i)
-                if i not in hashset_platform:
-                    hashset_platform.add(i)
-                    student_platform_list.append(i)
-                    if in_group.group_platforms == None:
-                        in_group.group_platforms = i + ","
-                    else:
-                        in_group.group_platforms = str(in_group.group_platforms) + i + ","
-
-        print(in_group.group_platforms)
-        print(student_platform_list)
+        plat = str(in_group.group_platforms)
+        plat = plat.split(",")
+        student_platforms_list = []
+        for i in plat:
+            student_platforms_list.append(i)
 
         context = {
             'group' : in_group,
             'userIsMember': is_member,
-            'student_skills_list' : student_skills_list,
-            'student_platform_list' : student_platform_list,
+            #'student_skills_list' : student_skills_list,
+            #'student_platforms_list' : student_platforms_list,
         }
         return render(request, 'group.html', context)
     # render error page if user is not logged in
@@ -123,6 +80,7 @@ def joinGroup(request):
             in_group.save();
             #request.user.group_set.add(in_group)
             #request.user.save()
+            updateGroup(in_group)
             context = {
                 'group' : in_group,
                 'userIsMember': True,
@@ -137,6 +95,7 @@ def unjoinGroup(request):
     if request.user.is_authenticated():
         in_name = request.GET.get('name', 'None')
         in_group = models.Group.objects.get(name__exact=in_name)
+        #updateGroup(in_group)
         in_group.members.remove(request.user)
         in_group.save();
         request.user.group_set.remove(in_group)
@@ -177,6 +136,20 @@ def updateGroup(group):
     hashset_platform = set()
     student_platform_list = []
     pattern = re.compile('([^\s\w]|_)+')
+
+    for student in student_list:
+        # print(type(student.platforms))
+        # s = student.platforms[1:student.platforms.length]
+        s = student.platforms
+        s = s.split(",")
+        for i in s:
+            i = pattern.sub('', i)
+            i = i.lstrip()
+            # print(i)
+            if i not in hashset_platform:
+                hashset_platform.add(i)
+
+
     for student in student_list:
         # print(type(student.platforms))
         # s = student.platforms[1:student.platforms.length]
@@ -191,9 +164,8 @@ def updateGroup(group):
                 student_platform_list.append(i)
                 if group.group_platforms == None:
                     group.group_platforms = i + ","
-
                 else:
                     group.group_platforms = str(group.group_platforms) + i + ","
 
 
-        group.save()
+    group.save()

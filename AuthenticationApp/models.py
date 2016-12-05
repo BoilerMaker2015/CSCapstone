@@ -92,6 +92,30 @@ class MyUser(AbstractBaseUser):
     def is_staff(self):
         return self.is_admin
 
+class Platform(models.Model):
+        # student = models.ManyToManyField(Student)
+
+        # platform = models.CharField(max_length=100)
+        # platform = models.CharField(max_length=300)
+    platform = models.CharField(max_length=1000)
+
+    def __str__(self):  # Python 3
+        return self.platform
+            # user = models.ManyToManyField(
+            #  Student,
+            #   on_delete = models.CASCADE,
+            # )
+
+class Skill(models.Model):
+        # student = models.ManyToManyField(Student)
+
+        # platform = models.CharField(max_length=100)
+        # platform = models.CharField(max_length=300)
+    skill = models.CharField(max_length=1000)
+
+    def __str__(self):  # Python 3
+        return self.skill
+
 
 # def new_user_reciever(sender, instance, created, *args, **kwargs):
 #     	if created:
@@ -106,6 +130,9 @@ class Student(models.Model):
         on_delete=models.CASCADE,
         primary_key=True)
 
+    platform = models.ManyToManyField(models.Platform)
+    skill = models.ManyToManyField(models.Skill)
+
     #defined your own Attirubtes Here
     major = models.CharField(
         max_length=120,
@@ -119,17 +146,18 @@ class Student(models.Model):
     )
 
 
-    skills = models.CharField(
-        max_length=120,
-        null=True,
-        blank=True,
-    )
 
-    platforms = models.CharField(
-        max_length=120,
-        null=True,
-        blank=True
-    )
+    # skills = models.CharField(
+    #     max_length=120,
+    #     null=True,
+    #     blank=True,
+    # )
+    #
+    # platforms = models.CharField(
+    #     max_length=120,
+    #     null=True,
+    #     blank=True
+    # )
 
 
 
@@ -256,3 +284,5 @@ class Engineer(models.Model):
     @property
     def is_staff(self):
         return False
+
+

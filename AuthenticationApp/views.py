@@ -9,7 +9,7 @@ from django.shortcuts import render
 from django.contrib import messages
 
 from .forms import LoginForm, RegisterForm, UpdateForm, UpdateStudentForm, UpdateProfessorForm, UpdateEngineerForm
-from .models import MyUser, Student, Professor, Engineer
+from .models import MyUser, Student, Professor, Engineer,Platform,Skill
 from CompaniesApp.models import Company
 
 
@@ -122,9 +122,24 @@ def update_profile(request):
             #print(form_2.cleaned_data['testing'])
             student = request.user.student
             student.major = form_2.cleaned_data['major']
-            student.skills = form_2.cleaned_data['skills']
-            student.platforms = form_2.cleaned_data['platforms']
-            print(form_2.cleaned_data['platforms'])
+
+            skill = Skill(skill=form_2.cleaned_data['skills'])
+            skill.save()
+            skill.student.add(student)
+
+            for i in form_2.cleaned_data['platforms']:
+                platform = Platform(platform=i)
+                platform.save()
+                platform.student.add(request.user.student)
+
+
+            #platform = Platform(platform=form_2.cleaned_data[''])
+
+
+            #Skill = form_2.cleaned_data['skills']
+           # student.skills = form_2.cleaned_data['skills']
+           # student.platforms = form_2.cleaned_data['platforms']
+            #print(form_2.cleaned_data['platforms'])
 
             student.year = form_2.cleaned_data['year']
 

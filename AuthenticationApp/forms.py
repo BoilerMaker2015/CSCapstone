@@ -3,7 +3,7 @@ Created by Naman Patwari on 10/4/2016.
 """
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django import forms
-from .models import MyUser,Student,Engineer,Professor
+from .models import MyUser,Student,Engineer,Professor,Platform,Skill
 from CompaniesApp.models import Company
 from tinymce.widgets import TinyMCE
 from tinymce import models as tinymce_models
@@ -110,11 +110,12 @@ class UpdateStudentForm(forms.ModelForm):
     )
 
 
-    platforms = forms.MultipleChoiceField(label="Platform",choices=platform_choice,widget=forms.CheckboxSelectMultiple)
+    #platforms = forms.MultipleChoiceField(label="Platform",choices=platform_choice,widget=forms.CheckboxSelectMultiple)
 
     #year = forms.CharField(widget=TinyMCE)
 
     year = forms.ChoiceField(label="Year",choices=year_choice,required=False)
+    skills = forms.CharField(max_length=100,required=False)
 
     #testing = forms.CharField(max_length=100,widget=forms.Textarea)
     #testing = forms.CharField(widget=TinyMCE(attrs={'cols': 3, 'rows': 3}))
@@ -128,7 +129,7 @@ class UpdateStudentForm(forms.ModelForm):
 
     class Meta:
         model = Student
-        fields = ('major', 'skills','year','platforms')
+        fields = ('major','year','platforms','skills')
 
 
 
