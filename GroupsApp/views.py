@@ -135,8 +135,8 @@ def getGroup(request):
         context = {
             'group' : in_group,
             'userIsMember': is_member,
-            'student_skills_list' : student_skills_list,
-            'student_platforms_list' : student_platforms_list,
+            #'student_skills_list' : student_skills_list,
+            #'student_platforms_list' : student_platforms_list,
         }
         return render(request, 'group.html', context)
     # render error page if user is not logged in
