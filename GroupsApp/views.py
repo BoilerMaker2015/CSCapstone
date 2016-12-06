@@ -292,15 +292,16 @@ def comments(request, group_id):
 
     if request.user.is_authenticated:
         in_group = models.Group.objects.get(pk=group_id)
-        comments = in_group.comments
-        recommended_project_appllied = None
+        comments = in_group.comments.all()
+        
+        print(comments)
         context = {
             'group' : in_group,
             'userIsMember': True,
-            'project_applied' : in_group.project,
-            'comments': in_group.comments
+            'project_applied' : in_group.project.name,
+            'comments': comments
         }
-        return render(request,'groupComment.html',context)
+        return render(request,'groupComments.html',context)
 
 
     else:
