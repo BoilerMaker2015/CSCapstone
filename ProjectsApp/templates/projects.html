@@ -16,7 +16,7 @@
                 {% for project in projects %}
                     <tr>
                         <td><a href="/project?id={{ project.id }}">{{ project.name }}</a></td>
-                        <td>{{ project.description }}</td>
+                        <td>{{ project.description|safe }}</td>
                         <td>
 
                             {% if request.user in project.bookmarkMembers.all %}

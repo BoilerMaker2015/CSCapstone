@@ -296,9 +296,10 @@ def comments(request, group_id):
         context = {
             'group' : in_group,
             'userIsMember': True,
-            'project_applied' : recommended_project_applied,
+            #'project_applied' : recommended_project_applied,
         }
-        return render(request,'group.html',context)
+        #return render(request,'group.html',context)
+        return HttpResponse("as")
 
     else:
 
