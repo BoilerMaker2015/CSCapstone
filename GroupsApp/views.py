@@ -296,7 +296,7 @@ def comments(request, group_id):
         context = {
             'group' : in_group,
             'userIsMember': True,
-            'project_applied' : recommended_project_applied,
+            'project_applied' : in_group.project,
             'comments': in_group.comments
         }
         return render(request,'groupComment.html',context)
