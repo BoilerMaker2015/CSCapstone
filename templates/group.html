@@ -12,7 +12,7 @@
                 <a href="/group/platform?name={{ group.name }}" class="btn btn-default">platform</a>
                 <a href="/group/skill?name={{ group.name }}" class="btn btn-default">skills</a>
             <a href="/group/recommend?id={{ group.id }}" class="btn btn-default">recommend me a Project</a>
-            <a href="{% url 'group:Comments' group.id %}" class="btn btn-default">comment</a>
+            <a href="{% url 'comment:Comments' group.id %}" class="btn btn-default">comment</a>
             {% if project_applied  %}
             <h4>applied Project: {{ project_applied }}<h4>
             {% endif %}

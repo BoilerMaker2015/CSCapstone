@@ -1,5 +1,5 @@
 
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect, HttpResponse
 from . import models
 from django.contrib import messages
 from . import forms
@@ -43,15 +43,21 @@ def submitTeacher(request):
     return render(request, 'teacher.html')
 
 def teachClass(request):
+    if request.user.is_authenticated:
+        if request.user.is_professor:
+            class_list = request.user.professor.teachClass.all()
+          
+            context = {
+            'classList': class_list,
+            }
+            
+            messages.success(request, 'In teacher teachClass method')
+            return render(request, 'teachClass.html', context)
+        else:
+            messages.error(request,"You are not a teacher")
+            return render(request,'body.html')
+    return HttpResponse("gg")
 
-    class_list = request.user.professor.teachClass.all()
-  
-    context = {
-    'classList': class_list,
-    }
-    
-    messages.success(request, 'In teacher teachClass method')
-    return render(request, 'teachClass.html', context)
 
  
 #classForm post method does not work and deal with it later

@@ -7,13 +7,13 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.contrib import messages
+
 from django.core.urlresolvers import reverse
 
 from .forms import LoginForm, RegisterForm, UpdateForm, UpdateStudentForm, UpdateProfessorForm, UpdateEngineerForm
 
 from .models import MyUser, Student, Professor, Engineer,Platform,Skill
 from CompaniesApp.models import Company
-
 
 
 
@@ -87,7 +87,7 @@ def auth_register(request):
             new_user.is_professor = True
             new_user.save()
 
-            new_professor = Professor(user=new_user, university = None, teachClass = None, phone = None) # note: maybe we do not need to give the special attributes, since it is null : true.)
+            new_professor = Professor(user=new_user, university = None, phone = None) # note: maybe we do not need to give the special attributes, since it is null : true.)
             new_professor.save()
         elif choice == 'Engineer':
             new_user.is_engineer = True
