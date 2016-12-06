@@ -12,10 +12,10 @@ lock groupContent%}
                     </tr>
                 </thead>
                 <tbody>
-                   {% for item in comment %}
+                   {% for item in comments %}
                    <tr>
 
-                       <td>{{ item.time }}</td>
+                       <td>{{ item.creator }}</td>
                        <td>{{ item.comment }}</td>
                        {% for subcomment in item.subcomment_set.all %}
                             <td> {{ subcomment.comment }}</td>
