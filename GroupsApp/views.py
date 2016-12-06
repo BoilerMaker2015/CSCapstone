@@ -293,7 +293,7 @@ def comments(request, group_id):
     if request.user.is_authenticated:
         in_group = models.Group.objects.get(pk=group_id)
         comments = in_group.comments
-        recommended_project_appllied = None
+        recommended_project_applied = None
         context = {
             'group' : in_group,
             'userIsMember': True,
