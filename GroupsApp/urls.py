@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'^group/skill$', views.GSkill, name='GSkill'),
     url(r'^group/recommend$', views.recommendProject, name='Recommend'),
     url(r'^group/comments/(?P<group_id>\d+)$', views.comments, name='Comments'),
+    url(r'^group/addComment/(?P<group_id>\d+)$',views.addComment,name='AddComment'),
 
 
 ]

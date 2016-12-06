@@ -294,7 +294,7 @@ def comments(request, group_id):
         in_group = models.Group.objects.get(pk=group_id)
         comments = in_group.comments.all()
         
-        print(comments)
+        #print(comments)
         context = {
             'group' : in_group,
             'userIsMember': True,
@@ -308,6 +308,16 @@ def comments(request, group_id):
 
         return render(request, 'autherror.html')
 
+
+def addComment(request,group_id):
+    if request.user.is_authenticated:
+        print("the group is is " + group_id)
+        return HttpResponse("asd")
+
+
+    else:
+
+        return render(request, 'autherror.html')
 
 
 
