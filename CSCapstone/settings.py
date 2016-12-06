@@ -64,7 +64,7 @@ ROOT_URLCONF = 'CSCapstone.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ["templates"],
+        'DIRS': ["templates", "GroupsApp/templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

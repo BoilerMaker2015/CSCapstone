@@ -5,7 +5,7 @@ from django.shortcuts import render,redirect,HttpResponse
 from django.contrib import messages
 from . import models
 from . import forms
-import re
+from CommentsApp.models import Comment
 from ProjectsApp.models import Project
 from AuthenticationApp.models import MyUser,Student,Professor,Engineer
 from ProjectsApp.models import Project
@@ -287,6 +287,22 @@ def applyProject(request, groupId, projectId):
     return render(request,'group.html',context)
     #return redirect('group:Group',context)
     #return redirect('group:G')
+
+def comments(request, group_id):
+
+    if request.user.is_authenticated:
+        in_group = models.Group.objects.get(pk=group_id)
+        is_member = in_group.members.filter(email__exact=request.user.email)
+        context = {
+            'group' : in_group,
+            'userIsMember': True,
+            'project_applied' : recommended_project_applied,
+        }
+        return render(request,'group.html',context)
+
+    else:
+
+        return render(request, 'autherror.html')
 
 
 

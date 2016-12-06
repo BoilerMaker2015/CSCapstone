@@ -21,7 +21,7 @@ urlpatterns = [
     url(r'^group/platform$', views.GPlatform, name='GPlatform'),
     url(r'^group/skill$', views.GSkill, name='GSkill'),
     url(r'^group/recommend$', views.recommendProject, name='Recommend'),
-   
+    url(r'^group/comments$', views.comments, name='Comments'),
 
 ]
 

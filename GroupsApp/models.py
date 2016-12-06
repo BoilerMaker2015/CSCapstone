@@ -5,7 +5,7 @@ Created by Naman Patwari on 10/10/2016.
 from django.db import models
 from AuthenticationApp.models import MyUser,Platform,Skill
 from ProjectsApp.models import Project
-
+from CommentsApp.models import Comment
 
 # Create your models here.
 class Group(models.Model):
@@ -17,6 +17,7 @@ class Group(models.Model):
    # group_platforms = models.CharField(max_length=500,default=None,null=True,blank=True)
     group_skills = models.ManyToManyField(Skill)
     group_platform = models.ManyToManyField(Platform)
+    comments=models.ManyToManyField(Comment)
 
     project = models.ForeignKey(Project, blank=True, null=True)
 
