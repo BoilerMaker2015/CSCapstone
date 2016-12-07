@@ -9,8 +9,8 @@
 			<p>{{ group.description }}</p>
 			{% if userIsMember %}
 			<a href="/group/unjoin?name={{ group.name }}" class="btn btn-default">Unjoin this Group</a>
-                <a href="/group/platform?name={{ group.name }}" class="btn btn-default">platform</a>
-                <a href="/group/skill?name={{ group.name }}" class="btn btn-default">skills</a>
+                <a href="/group/platform?name={{ group.name }}" class="btn btn-default">Strength</a>
+{#                <a href="/group/skill?name={{ group.name }}" class="btn btn-default">skills</a>#}
             <a href="/group/recommend?id={{ group.id }}" class="btn btn-default">recommend me a Project</a>
             <a href="{% url 'group:Comments' group.id %}" class="btn btn-default">comment</a>
                 <a href="{% url 'group:ViewAllProject' %}" class="btn btn-default">View All Project</a>
