@@ -199,9 +199,12 @@ def update_profile(request):
 
         if form.is_valid() and form_2.is_valid():
             engineer = request.user.engineer
-            company = Company.objects.get(pk=form_2.cleaned_data['company'].id)
-            company.members.add(request.user)
+            #company = Company.objects.get(pk=form_2.cleaned_data['company'].id)
+            #company.members.add(request.user)
             #engineer.company = form_2.cleaned_data['company']
+            #company = form_2.cleaned_data['company']
+            #company.members.add(request.user)
+            #company.save()
 
             engineer.position = form_2.cleaned_data['position']
             engineer.phone = form_2.cleaned_data['phone']

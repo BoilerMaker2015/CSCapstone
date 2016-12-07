@@ -155,15 +155,19 @@ class UpdateEngineerForm(forms.ModelForm):
     #     ('Engineer', 'Engineer'),)
     #company = forms.CharField(widget=TinyMCE(attrs={'cols': 80, 'rows': 30}))
     #company = forms.CharField(max_length=100)
-    company = forms.CharField(widget=TinyMCE)
+    #company = forms.CharField(widget=TinyMCE)
 
+    #company = forms.ModelChoiceField(queryset=Company.objects.all())
 
     #choice = forms.ChoiceField(label="Choice", choices=Company.objects.all())
     #something = forms.CharField(max_length=100)
 
+
     class Meta:
         model = Engineer
-        fields = ('company', 'position', 'phone')
+        fields = ('position', 'phone')
+
+
 
 
 

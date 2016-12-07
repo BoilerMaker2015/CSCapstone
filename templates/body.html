@@ -65,7 +65,7 @@
                             <li><a href="{% url 'project:BookmarkProjectsOnly' %}">View BookMarked Projects Only</a></li>
                              {% if request.user.is_engineer %}
 							<li><a href="{% url 'project:AddProject' %}">Create Project</a></li>
-                                 {% endif %}
+                             {% endif %}
 						</ul>
 					</li>
 

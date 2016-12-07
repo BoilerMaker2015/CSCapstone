@@ -77,7 +77,7 @@ def joinCompany(request):
             in_name = request.GET.get('name', 'None')
             in_company = models.Company.objects.get(name__exact=in_name)
             in_company.members.add(request.user)
-            in_company.save();
+            in_company.save()
             request.user.company_set.add(in_company)
             request.user.save()
             context = {
