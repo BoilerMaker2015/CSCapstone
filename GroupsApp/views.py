@@ -6,6 +6,7 @@ from django.contrib import messages
 from . import models
 from . import forms
 from CommentsApp.models import Comment
+from CommentsApp.forms import CommentForm
 from ProjectsApp.models import Project
 from AuthenticationApp.models import MyUser,Student,Professor,Engineer
 from ProjectsApp.models import Project
@@ -293,7 +294,7 @@ def comments(request, group_id):
     if request.user.is_authenticated:
         in_group = models.Group.objects.get(pk=group_id)
         comments = in_group.comments.all()
-        
+
         print(comments)
         context = {
             'group' : in_group,
@@ -308,6 +309,18 @@ def comments(request, group_id):
 
         return render(request, 'autherror.html')
 
+def addComment(render):
+    if request.user.is_authenticated:
+        form = forms.CommentForm
+        if request.method == 'POST':
+            
+        else:
+
+          
+            return render(request, 'groupComments.html')
+    else:
+
+        return render(request, 'autherror.html')
 
 
 

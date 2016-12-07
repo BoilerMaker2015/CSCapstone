@@ -5,6 +5,7 @@
     <div class="container" role="main">
         <div class="table-responsive">
             <table class="table table-striped sortable">
+                <h4>Comments <h4>
                 <thead>
                     <tr>
                     
@@ -28,6 +29,8 @@
                    {% endfor %}
                 </tbody>
             </table>
+
+            <a href="{% url 'group:AddComments' group.id %}" class="btn btn-default"> add comment</a>
         </div>
     </div>
 
