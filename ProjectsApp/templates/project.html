@@ -10,14 +10,14 @@
 				<h1>Project</h1>
                     {{ project.name }}
 				<p>Description</p>
-                    {{ project.description }}
+                    {{ project.description|safe }}
 
                 {% for platform in project.project_platform.all %}
                     {{ platform }}
                 {% endfor %}
 
                 {% for skill in project.project_skill.all %}
-                    {{ skill }}
+                    {{ skill|safe }}
                 {% endfor %}
 
 		</div>

@@ -17,10 +17,9 @@
 				<tbody>
 					{% for project in projects%}
 					<tr>
-{#						<td>{{ project.name }}</td>#}
-                        <td><a href="/project?id={{ project.id }}">{{ project.name }}</a></td>
+						<td><a href="/project?id={{ project.id }}">{{ project.name }}</a></td>
 						<td>{{ project.description|safe }}</td>
-                    
+
                          
 						<td><a href="{% url 'group:ApplyProject' groupId project.pk %}">apply project</a></td>
 					</tr>

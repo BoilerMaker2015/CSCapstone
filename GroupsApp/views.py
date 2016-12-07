@@ -23,10 +23,10 @@ def getGroups(request):
     # render error page if user is not logged in
     return render(request, 'autherror.html')
 
-def compare_group_project(group,project):
+def compare_group_project(group,project_id):
     required_skill_list = []
     required_platform_list = []
-
+    project = Project.objects.get(pk=project_id)
     group_platform_list = []
     group_skill_list = []
     #print(group.name)
@@ -34,9 +34,11 @@ def compare_group_project(group,project):
         required_skill_list.append(required_skill.skill)
     for required_platform in project.project_platform.all():
         required_platform_list.append(required_platform.platform)
+    #print("project name is " + str(project.id))
+    #print( "the proejct skills " + str(project.project_skill.all()))
 
-
-
+    #print("required skill list is " + str(required_skill_list))
+    #print("requiredp latform list is " + str(required_platform_list))
         #group_skill_list.append(group_skill.skill)
 
     for group_platform in group.group_platform.all():
@@ -79,8 +81,17 @@ def compare_group_project(group,project):
     return True
 
 
+def showAllProject(request):
+    #projects_list = []
+    # sorting by bookmark first then only list out the unbookmarked
+    if request.user.is_authenticated:
+        projects_list = Project.objects.all()
 
-
+        return render(request, 'projects.html', {
+            'projects': projects_list,
+        })
+    else:
+        return render(request,'autherror.html')
 
 
 def recommendProject(request):
@@ -98,7 +109,8 @@ def recommendProject(request):
         matched_project_list = []
 
         for project in Project.objects.all():
-            if compare_group_project(current_group,project):
+            project_id = project.id
+            if compare_group_project(current_group,project_id):
                 matched_project_list.append(project)
 
         # print("the recommended projects are")
@@ -140,11 +152,17 @@ def getGroup(request):
         for i in in_group.group_platform.all():
             student_platforms_list.append(i)
 
+        if in_group.project == None:
+            project_name = None
+        else:
+            project_name = in_group.project.name
+
         context = {
             'group' : in_group,
             'userIsMember': is_member,
             'student_skills_list' : student_skills_list,
             'student_platforms_list' : student_platforms_list,
+            'project_applied': project_name,
         }
         return render(request, 'group.html', context)
     # render error page if user is not logged in
@@ -188,12 +206,15 @@ def joinGroup(request):
             in_group = models.Group.objects.get(name__exact=in_name)
             in_group.members.add(request.user)
             in_group.save();
+
             update_group(in_group)
             student = request.user.student
             print(student.skill.all())
 
-
-
+            if in_group.project == None:
+                project_name = None
+            else:
+                project_name = in_group.project.name
 
             #request.user.group_set.add(in_group)
             #request.user.save()
@@ -201,7 +222,7 @@ def joinGroup(request):
             context = {
                 'group' : in_group,
                 'userIsMember': True,
-            
+                'project_applied' : project_name,
             }
             return render(request, 'group.html', context)
         else:
@@ -219,9 +240,15 @@ def unjoinGroup(request):
         in_group.save();
         request.user.group_set.remove(in_group)
         request.user.save()
+        if in_group.project == None:
+            project_name = None
+        else:
+            project_name = in_group.project.name
+
         context = {
             'group' : in_group,
             'userIsMember': False,
+            'project_applied': project_name,
         }
         return render(request, 'group.html', context)
     return render(request, 'autherror.html')
@@ -249,6 +276,7 @@ def update_group(group):
     group.group_skills.clear()
     group.group_platform.clear()
     group.save()
+    print("aiite")
     student_list = []
     for member in group.members.all():
         student_list.append(member.student)
@@ -297,22 +325,22 @@ def comments(request, group_id):
     if request.user.is_authenticated:
         in_group = models.Group.objects.get(pk=group_id)
         comments = in_group.comments.all()
-        if in_group.project:
-            context = {
-                'group' : in_group,
-                'userIsMember': True,
-                'project_applied' : in_group.project.name,
-                'comments': comments,
-               
-            }
-        else:
-            context = {
-                'group' : in_group,
-                'userIsMember': True,
-                'project_applied' : None,
-                'comments': comments,
-               
-            }
+        # name = in_group.project.name
+       # name = in_group.project_id
+        if in_group.project == None:
+            project_name = None
+        else :
+            project_name = in_group.project.name
+
+        print(in_group)
+     
+        context = {
+            'group' : in_group,
+            'userIsMember': True,
+            'project_applied' : project_name,
+            'comments': comments,
+           
+        }
 
         return render(request,'groupComments.html',context)
 

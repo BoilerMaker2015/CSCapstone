@@ -14,20 +14,24 @@
                 </thead>
                 <tbody>
                 {% for project in projects %}
+
+
+
                     <tr>
                         <td><a href="/project?id={{ project.id }}">{{ project.name }}</a></td>
                         <td>{{ project.description|safe }}</td>
                         <td>
 
                             {% if request.user in project.bookmarkMembers.all %}
-                                <a href="/project/unbookmarkProject?id={{ project.id }}" class="btn-sm btn-favorite"
+                                <a href="/project/unbookmarkProject?id={{ project.id }}" class="glyphicon glyphicon-star-empty"
                                    role="button">
-                                    <span class="glyphicon glyphicon-star active"></span>
+{#                                    <span class="glyphicon glyphicon-star"></span>#}
                                 </a>
+
                             {% else %}
                                 <a href="/project/bookmarkProject?id={{ project.id }}"
-                                   class="btn btn-default btn-favorite" role="button">
-                                    <span class="glyphicon glyphicon-star"></span>
+                                   class="glyphicon glyphicon-star" role="button">
+{#                                    <span class="glyphicon glyphicon-star-empty"></span>#}
                                 </a>
                             {% endif %}
 
