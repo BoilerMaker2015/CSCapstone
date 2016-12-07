@@ -7,7 +7,7 @@ from .forms import ProjectForm
 from django.http import HttpResponseRedirect, HttpResponse
 from django.utils import timezone
 from django.contrib import messages
-from AuthenticationApp.models import Platform,Skill
+from AuthenticationApp.models import Platform,Skill,Engineer,MyUser
 
 
 from . import models
@@ -29,6 +29,32 @@ def getProjects(request):
     return render(request, 'projects.html', {
         'projects': projects_list,
     })
+
+
+# view the created project only. This is only for Engineers!
+def viewCreatedProjectsOnly(request):
+    if request.user.is_authenticated:
+        if request.user.is_engineer:
+            project_list = []
+            for project in Project.objects.all():
+                if project.creator == request.user.engineer:
+                    project_list.append(project)
+
+            context = {
+                'projects' : project_list,
+            }
+
+            return render(request,'createdProjects.html',context)
+
+        else:
+            return HttpResponse(request,"you are not an engineer.Unable to View Projects Created")
+
+    else:
+
+        return render(request, 'autherror.html')
+
+
+
 
 
 def getBookMarkProjectOnly(request):
@@ -74,6 +100,7 @@ def addProject(request):
                 name = request.POST.get('name')
                 description = request.POST.get('description')
                 time = timezone.now()
+
                 #platform = request.POST.get('project_platform')
                 #print(platform)
 
@@ -83,7 +110,7 @@ def addProject(request):
                 #print(platform)
                 #print(type(platform))
 
-                new_project = Project(name=name, description=description, created_at=time, updated_at=time)
+                new_project = Project(name=name, description=description, creator=request.user.engineer,created_at=time, updated_at=time)
 
 
                 new_project.save()

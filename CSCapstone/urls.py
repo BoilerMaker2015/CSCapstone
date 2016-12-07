@@ -11,7 +11,7 @@ from django.contrib import admin
 
 
 urlpatterns = [
-	url(r'^admin/', admin.site.urls),
+    url(r'^admin/', admin.site.urls),
     url(r'^', include('CSCapstoneApp.urls')),
     url(r'^auth/', include('AuthenticationApp.urls')),
     url(r'^comment/', include('CommentsApp.urls')),

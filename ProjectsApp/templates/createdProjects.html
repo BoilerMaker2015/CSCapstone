@@ -1,0 +1,30 @@
+{% extends "body.html" %}
+
+{% block content %}
+
+    <!-- Content -->
+    <div class="container" role="main">
+        <div class="table-responsive">
+            <table class="table table-striped sortable">
+                <thead>
+                <tr>
+                    <th><h1>Created Project</h1></th>
+                    <th><h1>Project Description</h1></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for project in projects %}
+
+
+
+                    <tr>
+                        <td><a href="/project?id={{ project.id }}"><h3>{{ project.name }}</h3></a></td>
+                        <td><h4>{{ project.description|safe }}</h4></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

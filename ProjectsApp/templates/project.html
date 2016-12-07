@@ -7,10 +7,10 @@
 		<div class="jumbotron">
 
 
-				<h1>Project</h1>
-                    {{ project.name }}
-				<p>Description</p>
-                    {{ project.description|safe }}
+				<h1><i>Project</i> : {{ project.name }}</h1>
+
+				<p><i>Description</i>: {{ project.description|safe }}</p>
+
 
                 {% for platform in project.project_platform.all %}
                     {{ platform }}

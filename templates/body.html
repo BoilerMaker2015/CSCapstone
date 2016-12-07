@@ -59,8 +59,13 @@
 						<ul class="dropdown-menu">
 							<!--<li><a href="/company/form">View Projects</a></li>-->
 							<li><a href="{% url 'project:Projects' %}">View Projects</a></li>
+                            {% if request.user.is_engineer %}
+                            <li><a href="{% url 'project:CreatedProjectsOnly' %}">View Created Projects</a></li>
+                            {% endif %}
                             <li><a href="{% url 'project:BookmarkProjectsOnly' %}">View BookMarked Projects Only</a></li>
+                             {% if request.user.is_engineer %}
 							<li><a href="{% url 'project:AddProject' %}">Create Project</a></li>
+                                 {% endif %}
 						</ul>
 					</li>
 
