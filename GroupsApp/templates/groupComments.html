@@ -15,9 +15,9 @@
                    {% for comment in comments %}
                    <tr>
 
-                       <td><strong>{{ comment.creator.first_name }} &nbsp{{ comment.creator.last_name }} :</strong>  </td>
+                       <td style="width: 10%"><strong>{{ comment.creator.first_name }} &nbsp{{ comment.creator.last_name }} :</strong>  </td>
                        
-                       <td>{{ comment.comment }}</td>
+                       <td style="width: 90%">{{ comment.comment }}</td>
                        <!---
                        {% for subcomment in item.subcomment_set.all %}
                             <td> {{ subcomment.comment }}</td>
@@ -26,11 +26,21 @@
                
 
                    </tr>
+
                    {% endfor %}
                 </tbody>
             </table>
 
-            <a href="{% url 'group:AddComments' group.id %}" class="btn btn-default"> add comment</a>
+
+            <!--<a href="{% url 'group:AddComments' group.id %}" class="btn btn-default"> add comment</a> -->
+
+            <form action="{% url 'group:AddComment'  group.id %}" method="post">
+                {% csrf_token %}
+                <label for="add_comment">Type Here: </label>
+                <input id="add_comment" type="text" name="add_comment" value="{{ group.id }}">
+                <input type="submit" value="Submit Comment" class="btn btn-primary">
+            </form>
+
         </div>
     </div>
 
@@ -45,6 +55,8 @@
 
         <!--
                        <td> <button data-toggle="collapse" data-target="#subcomments{{forloop.counter}}">reply</button></td>
+
+
 
                        <td id="subcomments{{forloop.counter}}" class="collapse" id="item{{forloop.counter}}" value="{{item.id}}">
                               <form method="post" enctype="multipart/form-data" action="{% url 'comment:addSubComment' item.id %}" class="panel-body validate">

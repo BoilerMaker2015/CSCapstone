@@ -97,7 +97,7 @@ class Platform(models.Model):
 
         # platform = models.CharField(max_length=100)
         # platform = models.CharField(max_length=300)
-    platform = models.CharField(max_length=1000)
+    platform = models.CharField(max_length=1000,blank=True,null=True)
 
     def __str__(self):  # Python 3
         return self.platform
