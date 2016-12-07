@@ -3,7 +3,7 @@
 Created by Naman Patwari on 10/10/2016.
 """
 from django.db import models
-from AuthenticationApp.models import MyUser,Platform,Skill
+from AuthenticationApp.models import MyUser,Student, Platform,Skill
 from ProjectsApp.models import Project
 from CommentsApp.models import Comment
 

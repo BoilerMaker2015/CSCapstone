@@ -2,16 +2,18 @@
 Created by Naman Patwari on 10/10/2016.
 """
 from django.shortcuts import render,redirect,HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
 from . import models
 from . import forms
-from CommentsApp.models import Comment
+from CommentsApp.models import Comment, SubComment
 from CommentsApp.forms import CommentForm
 from ProjectsApp.models import Project
 from AuthenticationApp.models import MyUser,Student,Professor,Engineer
 from ProjectsApp.models import Project
 from django.shortcuts import redirect
 from django.urls import reverse
+from TeacherApp.forms import EmailForm
 
 def getGroups(request):
     if request.user.is_authenticated():
@@ -134,10 +136,10 @@ def recommendProject(request):
     # render error page if user is not logged in
     return render(request, 'autherror.html')
 
-def getGroup(request):
+def getGroup(request,group_name):
     if request.user.is_authenticated():
-        in_name = request.GET.get('name', 'None')
-        in_group = models.Group.objects.get(name__exact=in_name)
+        #in_name = request.GET.get('name', 'None')
+        in_group = models.Group.objects.get(name__exact=group_name)
         is_member = in_group.members.filter(email__exact=request.user.email)
 
        # plat = str(in_group.group_platforms)
@@ -370,5 +372,66 @@ def addComment(request,group_id):
 
         return render(request, 'autherror.html')
 
+def addSubComment(request,comment_id):
+    print(request.POST['subcomment'])
+    subcomment = request.POST['subcomment']
+
+    myComment=Comment.objects.get(pk=comment_id)
+    #parent_comment.subcomment_set.create(comment=subcomment)
+   # parent_comment.save()
+    new_subcomment = SubComment(parent_comment=myComment,comment=subcomment)
+    new_subcomment.save()
+    #parent_comment.subcomment_set.add(new_subcomment)
+    return redirect('comment:Comments')
+    #return render(request,'comments.html')
+    #new_subcomment = SubComment()
 
 
+def addMember(request, group_id):
+    if request.method == 'POST':
+        in_group = models.Group.objects.get(pk=group_id)
+        form = EmailForm(request.POST or None)
+        if form.is_valid():
+           
+            email = form.cleaned_data['email']
+            
+             # we still need to check whether email works
+            myUser = MyUser.objects.get(email=email)
+
+           
+            if myUser != None and myUser.student:
+                #student = Student.objects.filter(user=myUser)[0]
+                #student = myUser.student  #the above method also works
+                       
+                in_group.members.add(myUser)              
+            else:
+
+                messages.error(request, "this user email  is not a valid")
+            
+
+            return redirect(reverse("group:Group", args=[in_group.name]))
+
+        else:
+
+            messages.error(request, "the form is not correct")  
+            return redirect(reverse("group:Group", args=[in_group.name]))
+    else:
+
+        return render(request, 'autherror.html')
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+  

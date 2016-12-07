@@ -17,15 +17,30 @@
 
                        <td style="width: 10%"><strong>{{ comment.creator.first_name }} &nbsp{{ comment.creator.last_name }} :</strong>  </td>
                        
-                       <td style="width: 90%">{{ comment.comment }}</td>
+                       <td style="width: 70%">{{ comment.comment }}</td>
                        <!---
                        {% for subcomment in item.subcomment_set.all %}
                             <td> {{ subcomment.comment }}</td>
                        {% endfor %}
                        -->
-               
-
-                   </tr>
+                      
+                       <td> <button data-toggle="collapse" data-target="#subcomments{{forloop.counter}}">reply</button></td>
+                       
+                  
+                    </tr>
+                    <tr>
+                         <td  id="subcomments{{forloop.counter}}" class="collapse" id="item{{forloop.counter}}" value="{{item.id}}">
+                      
+                          <form method="post" enctype="multipart/form-data" action="{% url 'group:addSubComment' comment.pk %}" class="panel-body validate">
+                            {% csrf_token %}
+                             <label for="subcomment">Comment</label>
+                             <input type="text" name="subcomment" id="subcomment" placeholder="Comment" class="form-control" data-bvalidator="required" data-bvalidator-msg="Comment Required">
+                             <br>
+                             <input type="submit" value="Submit" class="btn btn-primary">
+                          </form>
+                      
+                      </td>
+                  </tr>
 
                    {% endfor %}
                 </tbody>
@@ -54,7 +69,6 @@
      -->
 
     <!--
-                       <td> <button data-toggle="collapse" data-target="#subcomments{{forloop.counter}}">reply</button></td>
 
 
 

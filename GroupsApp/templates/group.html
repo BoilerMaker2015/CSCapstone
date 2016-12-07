@@ -9,8 +9,9 @@
 			<p>{{ group.description }}</p>
 			{% if userIsMember %}
 			<a href="/group/unjoin?name={{ group.name }}" class="btn btn-default">Unjoin this Group</a>
-                <a href="/group/platform?name={{ group.name }}" class="btn btn-default">Strength</a>
-{#                <a href="/group/skill?name={{ group.name }}" class="btn btn-default">skills</a>#}
+			<a href="#" class="btn btn-default">add member</a>
+            <a href="/group/platform?name={{ group.name }}" class="btn btn-default">Strength</a>
+{#          <a href="/group/skill?name={{ group.name }}" class="btn btn-default">skills</a>#}
             <a href="/group/recommend?id={{ group.id }}" class="btn btn-default">recommend me a Project</a>
             <a href="{% url 'group:Comments' group.id %}" class="btn btn-default">comment</a>
                 <a href="{% url 'group:ViewAllProject' %}" class="btn btn-default">View All Project</a>
@@ -18,9 +19,8 @@
             <h4>applied Project: {{ project_applied }}<h4>
             {% endif %}
 			{% else %}
-			<a href="/group/join?name={{ group.name }}" class="btn btn-default">Join this Group</a>
+			<!--<a href="/group/join?name={{ group.name }}" class="btn btn-default">Join this Group</a> -->
             </h4>
-
 			{% endif %}
 
 		</div>
@@ -50,7 +50,25 @@
 					{% endfor %}
 				</tbody>
 			</table>
+
 		</div>
 	</div>
-    {% endblock %}
+	{% if userIsMember %}
+		<div class="container" role="main">
+		    <div class="panel panel-default">
+
+		        <form method="post" enctype="multipart/form-data" action="{% url 'group:AddMember' group.pk %}" class="panel-body validate">
+		        {% csrf_token %}
+		             <label for="email">add a student </label>
+
+		              <input type="text" width="50%" name="email" id="email" placeholder="student email" class="form-control" data-bvalidator="required" data-bvalidator-msg="Comment Required">
+		              <br>
+
+		            <input type="submit" value="Submit" class="btn btn-primary">
+		        </form>
+		    </div>
+		</div>
+   {% endif %}
+
+   {% endblock %}
 {% endblock %}
