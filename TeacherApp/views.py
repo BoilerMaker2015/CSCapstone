@@ -56,7 +56,7 @@ def teachClass(request):
         else:
             messages.error(request,"You are not a teacher")
             return render(request,'body.html')
-    return HttpResponse("gg")
+    return HttpResponse("please log in")
 
 
  

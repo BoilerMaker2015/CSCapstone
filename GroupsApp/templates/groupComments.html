@@ -32,12 +32,11 @@
             </table>
 
 
-            <!--<a href="{% url 'group:AddComments' group.id %}" class="btn btn-default"> add comment</a> -->
+  
 
             <form action="{% url 'group:AddComment'  group.id %}" method="post">
                 {% csrf_token %}
-                <label for="add_comment">Type Here: </label>
-                <input id="add_comment" type="text" name="add_comment" value="{{ group.id }}">
+                {% form.as_p%}
                 <input type="submit" value="Submit Comment" class="btn btn-primary">
             </form>
 
@@ -46,6 +45,10 @@
 
 {% endblock %}
 
+      <!--
+                <label for="add_comment">Type Here: </label>
+                <input id="comment" type="text" name="comment" value="{{ group.id }}">
+       -->         
      <!---
 		  <th style="width: 20%">User</th>
                      
@@ -53,7 +56,7 @@
 
      -->
 
-        <!--
+    <!--
                        <td> <button data-toggle="collapse" data-target="#subcomments{{forloop.counter}}">reply</button></td>
 
 
@@ -68,3 +71,5 @@
                                 </form>
                            </td>
                          -->
+
+   <!--<a href="{% url 'group:AddComments' group.id %}" class="btn btn-default"> add comment</a> -->

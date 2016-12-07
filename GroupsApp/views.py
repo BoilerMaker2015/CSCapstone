@@ -294,8 +294,6 @@ def comments(request, group_id):
     if request.user.is_authenticated:
         in_group = models.Group.objects.get(pk=group_id)
         comments = in_group.comments.all()
-
-    
         context = {
             'group' : in_group,
             'userIsMember': True,
@@ -310,13 +308,31 @@ def comments(request, group_id):
         return render(request, 'autherror.html')
 
 
-
+# submit a comment
 def addComment(request,group_id):
     if request.user.is_authenticated:
-        print("the group is is " + group_id)
-        return HttpResponse("asd")
+        in_group = models.Group.objects.get(pk=group_id)
+        comments = in_group.comments.all()
+        if request.method == 'POST':
+            form = CommentForm(request.POST)
+            if form.is_valid():
+                print("before")
+                print(form.cleaned_data['comment'])
+                print("after")
 
+                return HttpResponse("asd")
+        else:
+ 
+            context = {
 
+                'group' : in_group,
+                'userIsMember': True,
+                'project_applied' : in_group.project.name,
+                'comments': comments,
+                'form' : form
+            }
+            return render(request,'groupComments.html',context)
+            
     else:
 
         return render(request, 'autherror.html')
