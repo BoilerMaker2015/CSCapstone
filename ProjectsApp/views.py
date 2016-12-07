@@ -57,6 +57,9 @@ def getProject(request):
     return render(request, 'project.html', context)
 
 
+
+
+
 def addProject(request):
     form_class = ProjectForm
 
@@ -84,7 +87,7 @@ def addProject(request):
 
 
                 new_project.save()
-                '''
+
                 if form.cleaned_data['project_platform'] is not None:
                     platforms = form.cleaned_data['project_platform']
                 #print(platforms)
@@ -100,7 +103,7 @@ def addProject(request):
                         skill = Skill.objects.get(skill=i)
                         new_project.project_skill.add(skill)
                         new_project.save()
-                '''
+
                 return redirect('project:Projects')
                 #return
             else:
