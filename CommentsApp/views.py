@@ -48,7 +48,7 @@ def addSubComment(request,comment_id):
     print(request.POST['subcomment'])
     subcomment = request.POST['subcomment']
 
-    c = Comment.objects.get(pk=comment_id)
+    c= Comment.objects.get(pk=comment_id)
     #parent_comment.subcomment_set.create(comment=subcomment)
    # parent_comment.save()
     new_subcomment = SubComment(parent_comment=c,comment=subcomment)

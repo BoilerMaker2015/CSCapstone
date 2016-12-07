@@ -31,12 +31,10 @@
                 </tbody>
             </table>
 
-
-  
-
             <form action="{% url 'group:AddComment'  group.id %}" method="post">
                 {% csrf_token %}
-                {% form.as_p%}
+                <label for="add_comment">Type Here: </label>
+                <input id="comment" type="text" name="comment" placeholder="type your comment">
                 <input type="submit" value="Submit Comment" class="btn btn-primary">
             </form>
 
@@ -46,8 +44,7 @@
 {% endblock %}
 
       <!--
-                <label for="add_comment">Type Here: </label>
-                <input id="comment" type="text" name="comment" value="{{ group.id }}">
+              
        -->         
      <!---
 		  <th style="width: 20%">User</th>

@@ -10,6 +10,9 @@ from CommentsApp.forms import CommentForm
 from ProjectsApp.models import Project
 from AuthenticationApp.models import MyUser,Student,Professor,Engineer
 from ProjectsApp.models import Project
+from django.shortcuts import redirect
+from django.urls import reverse
+
 def getGroups(request):
     if request.user.is_authenticated():
         groups_list = models.Group.objects.all()
@@ -294,11 +297,13 @@ def comments(request, group_id):
     if request.user.is_authenticated:
         in_group = models.Group.objects.get(pk=group_id)
         comments = in_group.comments.all()
+     
         context = {
             'group' : in_group,
             'userIsMember': True,
             'project_applied' : in_group.project.name,
-            'comments': comments
+            'comments': comments,
+           
         }
         return render(request,'groupComments.html',context)
 
@@ -311,27 +316,18 @@ def comments(request, group_id):
 # submit a comment
 def addComment(request,group_id):
     if request.user.is_authenticated:
-        in_group = models.Group.objects.get(pk=group_id)
-        comments = in_group.comments.all()
         if request.method == 'POST':
-            form = CommentForm(request.POST)
-            if form.is_valid():
-                print("before")
-                print(form.cleaned_data['comment'])
-                print("after")
+            in_group = models.Group.objects.get(pk=group_id)
+            content = request.POST['comment']
+            new_comment = Comment()
+            new_comment.comment = content
+            new_comment.creator = request.user
+            new_comment.save()
+            in_group.comments.add(new_comment)
+           
 
-                return HttpResponse("asd")
-        else:
- 
-            context = {
-
-                'group' : in_group,
-                'userIsMember': True,
-                'project_applied' : in_group.project.name,
-                'comments': comments,
-                'form' : form
-            }
-            return render(request,'groupComments.html',context)
+        return redirect(reverse("group:Comments", args=[group_id]))
+       
             
     else:
 
