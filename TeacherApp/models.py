@@ -12,30 +12,5 @@ class Teacher(models.Model):
         null = True,
         blank = True,
     )
-    university = models.CharField(
-        max_length = 120,
-        null = True,
-        blank = True,
-    )
-    phone = models.CharField(
-        max_length = 10,
 
-    )
-    def __str__(self):
-        return self.first_name + self.last_name
-
-
-class TeachClass(models.Model):
-    title = models.CharField(
-        max_length = 120,
-        null = True,
-        blank = True,
-    )
-    
-    students = models.ManyToManyField(
-        'AuthenticationApp.Student'
-    ) 
-    
-    def __str__(self):
-        return self.title
      
