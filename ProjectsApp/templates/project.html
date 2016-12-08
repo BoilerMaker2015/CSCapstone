@@ -1,34 +1,37 @@
 {% extends "body.html" %}
 
 {% block content %}
-	
-	<!-- Content -->
-	<div class="container theme-showcase" role="main">
-		<div class="jumbotron">
+
+    <!-- Content -->
+    <div class="container theme-showcase" role="main">
+        <div class="jumbotron">
 
 
-				<h1><i>Project</i> : {{ project.name }}</h1>
+            <h1><i>Project</i> : {{ project.name }}</h1>
 
-				<p><i>Description</i>: {{ project.description|safe }}</p>
+            <p><i>Description</i>: {{ project.description|safe }}</p>
 
+            <h3>Platform: </h3>
+            {% for platform in project.project_platform.all %}
+                {{ platform }}
+            {% endfor %}
+            <h3>Skill: </h3>
+            {% for skill in project.project_skill.all %}
+                {{ skill|safe }}
+            {% endfor %}
 
-                {% for platform in project.project_platform.all %}
-                    {{ platform }}
-                {% endfor %}
+            <h3>Creator: {{ project.creator.get_full_name }}</h3>
 
-                {% for skill in project.project_skill.all %}
-                    {{ skill|safe }}
-                {% endfor %}
-
-                <h3>Creator: {{ project.creator.get_full_name }}</h3>
-
-{#                <h3>company: {{company.name }}</h3>#}
-                 <a href="/company?name={{ company.name }}"><h3>{{ company.name }}</h3></a></td>
-                  <h5><i>Description:</i> {{ company.description }}</h5>
-{#                    <a href="{%url 'company:Company' company.name %}">{{ company.name }}</a></td>#}
-                <a href="http://{{ company.website }}" >Company's Website </a>
-
-		</div>
-	</div>
+            {#                <h3>company: {{company.name }}</h3>#}
+            <a href="/company?name={{ company.name }}"><h3>{{ company.name }}</h3></a></td>
+            <h5><i>Description:</i> {{ company.description }}</h5>
+            {#                    <a href="{%url 'company:Company' company.name %}">{{ company.name }}</a></td>#}
+            <a href="http://{{ company.website }}">Company's Website </a>
+            <br>
+            {% if request.user.engineer == project.creator %}
+                <a href="/project/deleteProject?id={{ project.id }}" class="btn btn-default">Delete Project</a>
+            {% endif %}
+        </div>
+    </div>
 
 {% endblock %}

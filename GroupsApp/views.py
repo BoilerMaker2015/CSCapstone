@@ -383,9 +383,10 @@ def addComment(request,group_id):
 
 def deleteGroup(request):
     if request.user.is_authenticated:
-
         in_name = request.GET.get('name',None)
         in_group = models.Group.objects.get(name=in_name)
+        if request.user not in in_group.members.all():
+            return HttpResponse("NICE TRY PUNK")
         in_group.delete()
         groups_list = models.Group.objects.all()
         context = {
