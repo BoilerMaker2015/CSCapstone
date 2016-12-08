@@ -30,6 +30,30 @@
 {#                    {{ platform }}#}
 {#                {% endfor %}#}
 
+				{% block content %}
+
+	<div class="container">
+		<div class="table-responsive">
+			<table class="table table-striped sortable">
+
+				<thead>
+					<tr>
+						<th>platform</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for item in group.group_platform.all %}
+					<tr>
+						<td>{{ item }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+{% endblock %}
+				
 				<thead>
 					<tr>
 						<th>Users</th>
