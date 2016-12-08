@@ -12,6 +12,8 @@
             </tr>
             </thead>
             <tbody>
+
+            {% if userIsMember or request.user.is_engineer or request.user.is_professor %}
             {% for comment in comments %}
                 <tr>
 
@@ -60,6 +62,7 @@
 
 
     </div>
+    {% endif %}
 
 {% endblock %}
 

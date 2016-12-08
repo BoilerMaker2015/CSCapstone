@@ -137,6 +137,12 @@ def recommendProject(request):
 def getGroup(request):
     if request.user.is_authenticated():
         in_name = request.GET.get('name', 'None')
+<<<<<<< HEAD
+=======
+        #print(in_name)
+        #print(group_name)
+        #in_group = models.Group.objects.get(name=group_name)
+>>>>>>> victor123
         in_group = models.Group.objects.get(name=in_name)
         is_member = in_group.members.filter(email__exact=request.user.email)
 
@@ -189,6 +195,10 @@ def getGroupFormSuccess(request):
                     return render(request, 'groupform.html', {'error' : 'Error: That Group name already exists!'})
                 new_group = models.Group(name=form.cleaned_data['name'], description=form.cleaned_data['description'])
                 new_group.save()
+
+                new_group.members.add(request.user)
+                new_group.save()
+                update_group(new_group)
                 context = {
                     'name' : form.cleaned_data['name'],
                 }
@@ -238,7 +248,7 @@ def unjoinGroup(request):
         #updateGroup(in_group)
         in_group.members.remove(request.user)
         update_group(in_group)
-        in_group.save();
+        in_group.save()
         request.user.group_set.remove(in_group)
         request.user.save()
         if in_group.project == None:
@@ -311,9 +321,10 @@ def applyProject(request, groupId, projectId):
     is_member = in_group.members.filter(email__exact=request.user.email)
     recommended_project_applied = in_group.project.name
 
+
     context = {
         'group' : in_group,
-        'userIsMember': True,
+        'userIsMember': is_member,
         'project_applied' : recommended_project_applied,
     }
     #return HttpResponse("asdsadsas")
@@ -334,10 +345,12 @@ def comments(request, group_id):
             project_name = in_group.project.name
 
         print(in_group)
-     
+        #userIsMember = in_group.objects.filter()
+        is_member = in_group.members.filter(email__exact=request.user.email).exists()
+        print(is_member)
         context = {
             'group' : in_group,
-            'userIsMember': True,
+            'userIsMember': is_member,
             'project_applied' : project_name,
             'comments': comments,
            
@@ -373,6 +386,11 @@ def addComment(request,group_id):
 
 
 def addMember(request, group_id):
+
+    if request.method == 'GET':
+        print("aiite")
+        return render(request, 'autherror.html')
+
     if request.method=='POST':
         in_group = models.Group.objects.get(pk=group_id)
         form = EmailForm(request.POST or None)

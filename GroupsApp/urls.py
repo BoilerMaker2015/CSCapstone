@@ -17,7 +17,7 @@ urlpatterns = [
     url(r'^group/unjoin$', views.unjoinGroup, name='GUnjoin'),
     url(r'^group/(?P<groupId>\d+)/project/(?P<projectId>\d+)', views.applyProject, name = 'ApplyProject'), 
     
-    #url(r'^group/(?P<group_name>\w+)$', views.getGroup, name='Group'),
+
     url(r'^group/$', views.getGroup, name='Group'),
     url(r'^group/platform$', views.GPlatform, name='GPlatform'),
     # url(r'^group/skill$', views.GSkill, name='GSkill'),
