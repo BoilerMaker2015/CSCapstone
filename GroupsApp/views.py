@@ -134,10 +134,10 @@ def recommendProject(request):
     # render error page if user is not logged in
     return render(request, 'autherror.html')
 
-def getGroup(request, group_name):
+def getGroup(request):
     if request.user.is_authenticated():
-        #in_name = request.GET.get('name', 'None')
-        in_group = models.Group.objects.get(name=group_name)
+        in_name = request.GET.get('name', 'None')
+        in_group = models.Group.objects.get(name=in_name)
         is_member = in_group.members.filter(email__exact=request.user.email)
 
        # plat = str(in_group.group_platforms)
@@ -383,11 +383,46 @@ def addMember(request, group_id):
                 in_group.members.add(myUser)
             else:
                 messages.error(request, 'the email is not valid')
-            return redirect(reverse('group:Group', args=[in_group.name]))
+             
+            #return redirect(reverse('group:Group', args=[in_group.name])
+            #getgroup() function
+            if request.user.is_authenticated():
+                
+                in_group = models.Group.objects.get(name=in_group.name)
+                is_member = in_group.members.filter(email__exact=request.user.email)
 
-        else:
-            messages.error(request, "the form is not valid")
-            return redirect(reverse('group:Group', args=[in_group.name]))
+               # plat = str(in_group.group_platforms)
+               #  plat = plat.split(",")
+               #  student_platforms_list = []
+               #  for i in plat:
+               #      student_platforms_list.append(i)
+                student_skills_list = []
+                student_platforms_list = []
+                for i in in_group.group_skills.all():
+                    student_skills_list.append(i)
+                for i in in_group.group_platform.all():
+                    student_platforms_list.append(i)
+
+                if in_group.project == None:
+                    project_name = None
+                else:
+                    project_name = in_group.project.name
+
+                context = {
+                    'group' : in_group,
+                    'project_id' : in_group.id,
+                    'userIsMember': is_member,
+                    'student_skills_list' : student_skills_list,
+                    'student_platforms_list' : student_platforms_list,
+                    'project_applied': project_name,
+                }
+                return render(request, 'group.html', context)
+            
+            else:
+                    # render error page if user is not logged in
+                return render(request, 'autherror.html')
+
+
     else:
         return render(request, 'autherror.html')
 
