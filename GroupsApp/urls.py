@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^group/(?P<group_id>\d+)/deleteComment/(?P<comment_id>\d+)$',views.deleteComment,name='DeleteComment'),
     url(r'^group/viewAllProject$',views.showAllProject,name="ViewAllProject"),
     url(r'^group/addMember/(?P<group_id>\d+)$', views.addMember, name='AddMember'),
+    url(r'^group/delete$', views.deleteGroup, name='DeleteGroup'),
 
 
 ]

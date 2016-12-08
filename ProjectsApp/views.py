@@ -68,9 +68,33 @@ def getBookMarkProjectOnly(request):
         return render(request, 'bookmarkprojects.html', context)
     return render(request, 'autherror.html')
 
+def deleteProject(request):
+    if request.user.is_authenticated:
+        #return HttpResponse("Hey")
+
+        in_id = request.GET.get('id', 'None')
+        project = Project.objects.get(pk=in_id)
+        if project.creator != request.user.engineer:
+            return HttpResponse("nice try Punk!")
+        project.delete()
+
+
+        projects_list = Project.objects.all()
+
+        return render(request, 'projects.html', {
+            'projects': projects_list,
+        })
+        messages.success(request,"Successfully delete project")
+        return render(request, 'project.html', context)
+
+    return render(request,'autherror.html')
+
+
+
 
 def getProject(request):
     if request.user.is_authenticated:
+        #return HttpResponse("hey")
         in_id = request.GET.get('id', 'None')
         project = Project.objects.get(pk=in_id)
         project_platform_list = project.project_platform.all()
@@ -82,8 +106,17 @@ def getProject(request):
             if user in company.members.all():
                 print(str(company))
                 list_company.append(company)
+        c = None
+        if len(list_company) == 0:
+            c = None
+        else:
+            c = list_company[0]
+        #print("the c is " + str(c))
+        #print("asdsa")
+        #print("the request user is" + str(request.user.engineer))
+        #print(project.creator.user)
 
-        c = list_company[0]
+
         context = {
             'project': project,
             'project_platform_list' : project_platform_list,
