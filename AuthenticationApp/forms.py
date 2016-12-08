@@ -102,17 +102,17 @@ class UpdateStudentForm(forms.ModelForm):
         ('Junior', 'Junior'),
         ('Senior', 'Senior'),
     )
+    #
+    # platform_choice = []
+    # counter = 0
+    # if Platform.objects.all() != None:
+    #     for i in Platform.objects.all():
+    #         choice = (i.platform, i.platform)
+    #         platform_choice.insert(counter, choice)
+    #         counter = counter + 1
 
-    platform_choice = []
-    counter = 0
-    if Platform.objects.all() != None:
-        for i in Platform.objects.all():
-            choice = (i.platform, i.platform)
-            platform_choice.insert(counter, choice)
-            counter = counter + 1
 
-
-    platform = forms.MultipleChoiceField(label="Platform",choices=platform_choice,widget=forms.CheckboxSelectMultiple)
+  #  platform = forms.MultipleChoiceField(label="Platform",choices=platform_choice,widget=forms.CheckboxSelectMultiple)
 
     #year = forms.CharField(widget=TinyMCE)
 
