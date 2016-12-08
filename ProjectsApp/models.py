@@ -14,7 +14,7 @@ class Project(models.Model):
     description = models.CharField(max_length=10000)
     created_at = models.DateTimeField('date created')
     updated_at = models.DateTimeField('date updated')
-
+    
 
     # TODO Task 3.5: Add field for company relationship
     #company = models.ForeignKey(Company)
