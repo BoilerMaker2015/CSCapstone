@@ -8,7 +8,7 @@ from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 from django.db.models.signals import post_save
 from tinymce import models as tinymce_models
 from TeacherApp.models import TeachClass
-
+from CompaniesApp.models import Company
 
 # Create your models here.
 class MyUserManager(BaseUserManager):
@@ -240,10 +240,8 @@ class Engineer(models.Model):
     #
     #
 
-    company = models.CharField(
-        max_length=120,
-        null=True,
-        blank=True,
+    company = models.ManyToManyField(
+       Company
     )
 
 

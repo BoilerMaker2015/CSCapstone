@@ -6,6 +6,3 @@ class CommentForm(forms.Form):
     class Meta:
         model = Comment
         fields = ['comment']
-
-
-
