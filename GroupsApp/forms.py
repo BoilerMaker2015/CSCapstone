@@ -11,3 +11,4 @@ class GroupForm(forms.Form):
 
 class CommentForm(forms.Form):
     comment = forms.CharField(widget=TinyMCE,required=False,label='Type Your Comment Here')
+

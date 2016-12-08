@@ -381,6 +381,8 @@ def addComment(request,group_id):
 
         return render(request, 'autherror.html')
 
+
+
 def deleteGroup(request):
     if request.user.is_authenticated:
         in_name = request.GET.get('name',None)

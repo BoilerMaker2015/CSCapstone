@@ -11,13 +11,15 @@
 
             <p><i>Description</i>: {{ project.description|safe }}</p>
 
-            <h3>Platform: </h3>
+            <h3>Platform Requirement: </h3>
             {% for platform in project.project_platform.all %}
-                {{ platform }}
+                <i>{{ platform }} </i>
+                <br>
             {% endfor %}
-            <h3>Skill: </h3>
+            <h3>Skill Requirement: </h3>
             {% for skill in project.project_skill.all %}
-                {{ skill|safe }}
+                <i>{{ skill|safe }} </i>
+                <br>
             {% endfor %}
 
             <h3>Creator: {{ project.creator.get_full_name }}</h3>
@@ -30,7 +32,9 @@
             <br>
             {% if request.user.engineer == project.creator %}
                 <a href="/project/deleteProject?id={{ project.id }}" class="btn btn-default">Delete Project</a>
+                <a href="/project/editProject?id={{ project.id }}" class="btn btn-default">Edit Project</a>
             {% endif %}
+
         </div>
     </div>
 

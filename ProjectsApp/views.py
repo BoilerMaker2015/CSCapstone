@@ -3,7 +3,7 @@
 Created by Harris Christiansen on 10/02/16.
 """
 from django.shortcuts import render, redirect
-from .forms import ProjectForm
+from .forms import ProjectForm,EditProjectForm
 from django.http import HttpResponseRedirect, HttpResponse
 from django.utils import timezone
 from django.contrib import messages
@@ -90,7 +90,26 @@ def deleteProject(request):
     return render(request,'autherror.html')
 
 
+def editProject(request):
+    if request.user.is_authenticated:
+        in_id = request.GET.get('id',None)
+        project = Project.objects.get(id=in_id)
 
+        form = EditProjectForm(request.POST or None,instance=project)
+
+        if form.is_valid():
+            form.save()
+            context = {
+                'form': form,
+            }
+            messages.success(request,"Successfully updated project")
+            return render(request, 'editProject.html', context)
+
+
+        context = {
+            'form' : form,
+        }
+        return render(request,'editProject.html',context)
 
 def getProject(request):
     if request.user.is_authenticated:
