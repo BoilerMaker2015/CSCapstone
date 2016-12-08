@@ -4,6 +4,13 @@ from tinymce.widgets import TinyMCE
 from AuthenticationApp.models import Platform, Skill
 
 
+class EditProjectForm(forms.ModelForm):
+    description = forms.CharField(widget=TinyMCE)
+
+    class Meta:
+        model = Project
+        fields = ['name','description','project_platform','project_skill']
+
 class ProjectForm(forms.Form):
     name = forms.CharField(required=True,max_length=200)
     #description = forms.CharField(max_length=10000,required=True)
