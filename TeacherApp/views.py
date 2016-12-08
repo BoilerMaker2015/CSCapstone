@@ -135,8 +135,18 @@ def addStudent(request, classId):
         if form.is_valid():
            
             email = form.cleaned_data['email']
-            
+            check = MyUser.objects.filter(email=email).exists()
+            if check == False:
+                return HttpResponse("go an die")
+                # class = models.TeachClass.objects.get(pk=classId)
+                # student_list = class.students.all
+                # context = {
+                #     'studentList': student_list,
+                #     'class_id': classId,
+                # }
+                # return render(request, 'students.html', context)
             myUser = MyUser.objects.get(email=email)
+
         
             #student = Student.objects.filter(user=myUser)[0]
             student = myUser.student  #the above method also works

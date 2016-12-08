@@ -1,59 +1,79 @@
 {% extends "group.html" %}
-{% block groupContent%}
+{% block groupContent %}
 
     <!-- Content -->
     <div class="container" role="main">
-        <div class="table-responsive">
-            <table class="table table-striped sortable">
-                <h4>Comments </h4>
-                <thead>
-                    <tr>
-                    
-                    </tr>
-                </thead>
-                <tbody>
-                   {% for comment in comments %}
-                   <tr>
+    <div class="table-responsive">
+        <table class="table table-striped sortable">
+            <h4>Comments </h4>
+            <thead>
+            <tr>
 
-                       <td style="width: 10%"><strong>{{ comment.creator.first_name }} &nbsp{{ comment.creator.last_name }} :</strong>  </td>
-                       
-                       <td style="width: 90%">{{ comment.comment }}</td>
-                       <!---
+            </tr>
+            </thead>
+            <tbody>
+            {% for comment in comments %}
+                <tr>
+
+                    <td style="width: 10%"><strong>{{ comment.creator.first_name }} &nbsp{{ comment.creator.last_name }}
+                        :</strong></td>
+
+                    <td style="width: 90%">{{ comment.comment|safe }}</td>
+                    <!---
                        {% for subcomment in item.subcomment_set.all %}
                             <td> {{ subcomment.comment }}</td>
                        {% endfor %}
                        -->
-               
 
-                   </tr>
 
-                   {% endfor %}
-                </tbody>
-            </table>
+                </tr>
 
-            <form action="{% url 'group:AddComment'  group.id %}" method="post">
-                {% csrf_token %}
-                <label for="add_comment">Type Here: </label>
-                <input id="comment" type="text" name="comment" placeholder="type your comment">
-                <input type="submit" value="Submit Comment" class="btn btn-primary">
-            </form>
+            {% endfor %}
+            </tbody>
+        </table>
 
-        </div>
+{#        <form action="{% url 'group:AddComment'  group.id %}" method="post">#}
+{#            {% csrf_token %}#}
+{#            <label for="add_comment">Type Here: </label>#}
+{#            <input id="comment" type="text" name="comment" placeholder="type your comment">#}
+{#            <input type="submit" value="Submit Comment" class="btn btn-primary">#}
+{#        </form>#}
+
+        <form action="{% url 'group:AddComment'  group.id %}" method="post">
+            {% csrf_token %}
+            <div>
+      <textarea cols="10" rows="10" id="comment" name="comment">
+{#        &lt;p&gt;Here's some sample text&lt;/p&gt;#}
+      </textarea>
+                <script type="text/javascript">
+                    tinyMCE.init({
+                        theme: "advanced",
+                        theme_advanced_toolbar_location: "top",
+                        theme_advanced_toolbar_align: "left",
+                        mode: "exact",
+                        elements: "comment",
+                    });
+                </script>
+                <input type="submit"  class="btn btn-parimary" value="Submit"/>
+            </div>
+        </form>
+
+
     </div>
 
 {% endblock %}
 
-      <!--
-              
-       -->         
-     <!---
-		  <th style="width: 20%">User</th>
-                     
-                       <th style="width: 80%">Comment</th>
+<!--
 
-     -->
+ -->
+<!---
+     <th style="width: 20%">User</th>
 
-    <!--
+                  <th style="width: 80%">Comment</th>
+
+-->
+
+<!--
                        <td> <button data-toggle="collapse" data-target="#subcomments{{forloop.counter}}">reply</button></td>
 
 
@@ -69,4 +89,4 @@
                            </td>
                          -->
 
-   <!--<a href="{% url 'group:AddComments' group.id %}" class="btn btn-default"> add comment</a> -->
+<!--<a href="{% url 'group:AddComments' group.id %}" class="btn btn-default"> add comment</a> -->

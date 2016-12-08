@@ -12,7 +12,7 @@ from AuthenticationApp.models import MyUser,Student,Professor,Engineer
 from ProjectsApp.models import Project
 from django.shortcuts import redirect
 from django.urls import reverse
-
+from TeacherApp.forms import EmailForm
 def getGroups(request):
     if request.user.is_authenticated():
         groups_list = models.Group.objects.all()
@@ -134,10 +134,10 @@ def recommendProject(request):
     # render error page if user is not logged in
     return render(request, 'autherror.html')
 
-def getGroup(request):
+def getGroup(request, group_name):
     if request.user.is_authenticated():
-        in_name = request.GET.get('name', 'None')
-        in_group = models.Group.objects.get(name__exact=in_name)
+        #in_name = request.GET.get('name', 'None')
+        in_group = models.Group.objects.get(name=group_name)
         is_member = in_group.members.filter(email__exact=request.user.email)
 
        # plat = str(in_group.group_platforms)
@@ -371,4 +371,23 @@ def addComment(request,group_id):
         return render(request, 'autherror.html')
 
 
+
+def addMember(request, group_id):
+    if request.method=='POST':
+        in_group = models.Group.objects.get(pk=group_id)
+        form = EmailForm(request.POST or None)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            myUser = MyUser.objects.get(email=email)
+            if myUser != None and myUser.student:
+                in_group.members.add(myUser)
+            else:
+                messages.error(request, 'the email is not valid')
+            return redirect(reverse('group:Group', args=[in_group.name]))
+
+        else:
+            messages.error(request, "the form is not valid")
+            return redirect(reverse('group:Group', args=[in_group.name]))
+    else:
+        return render(request, 'autherror.html')
 

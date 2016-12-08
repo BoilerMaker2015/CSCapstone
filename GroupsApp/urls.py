@@ -17,15 +17,14 @@ urlpatterns = [
     url(r'^group/unjoin$', views.unjoinGroup, name='GUnjoin'),
     url(r'^group/(?P<groupId>\d+)/project/(?P<projectId>\d+)', views.applyProject, name = 'ApplyProject'), 
     
-    url(r'^group$', views.getGroup, name='Group'),
+    url(r'^group/(?P<group_name>\w+)$', views.getGroup, name='Group'),
     url(r'^group/platform$', views.GPlatform, name='GPlatform'),
     # url(r'^group/skill$', views.GSkill, name='GSkill'),
     url(r'^group/recommend$', views.recommendProject, name='Recommend'),
     url(r'^group/comments/(?P<group_id>\d+)$', views.comments, name='Comments'),
     url(r'^group/addComment/(?P<group_id>\d+)$',views.addComment,name='AddComment'),
-    url(r'^group/viewAllProject$',views.showAllProject,name="ViewAllProject")
-
-
+    url(r'^group/viewAllProject$',views.showAllProject,name="ViewAllProject"),
+    url(r'^group/addMember/(?P<group_id>\d+)$', views.addMember, name='AddMember'),
 
 ]
 

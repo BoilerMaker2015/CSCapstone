@@ -23,14 +23,14 @@
                         <td>
 
                             {% if request.user in project.bookmarkMembers.all %}
-                                <a href="/project/unbookmarkProject?id={{ project.id }}" class="glyphicon glyphicon-star-empty"
+                                <a href="/project/unbookmarkProject?id={{ project.id }}" class="glyphicon glyphicon-star"
                                    role="button">
 {#                                    <span class="glyphicon glyphicon-star"></span>#}
                                 </a>
 
                             {% else %}
                                 <a href="/project/bookmarkProject?id={{ project.id }}"
-                                   class="glyphicon glyphicon-star" role="button">
+                                   class="glyphicon glyphicon-star-empty" role="button">
 {#                                    <span class="glyphicon glyphicon-star-empty"></span>#}
                                 </a>
                             {% endif %}
