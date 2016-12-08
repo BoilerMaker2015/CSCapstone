@@ -194,7 +194,17 @@ def addClass(request):
                 #messages.success(request, 'In teacher add class method')
                 return render(request, 'teachClass.html', context)
 
-      
+def deleteClass(request):
+    class_id = request.GET.get('id')
+    myclass = models.TeachClass.objects.get(pk=class_id)
+    request.user.professor.teachClass.remove(myclass)
+    class_list = request.user.professor.teachClass.all()
+    context = {
+            'classList': class_list,
+            'user': request.user,
+    }
+        #messages.success(request, 'In teacher add class method')
+    return render(request, 'teachClass.html', context) 
 
 
 

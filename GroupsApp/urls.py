@@ -24,8 +24,10 @@ urlpatterns = [
     url(r'^group/recommend$', views.recommendProject, name='Recommend'),
     url(r'^group/comments/(?P<group_id>\d+)$', views.comments, name='Comments'),
     url(r'^group/addComment/(?P<group_id>\d+)$',views.addComment,name='AddComment'),
+    url(r'^group/(?P<group_id>\d+)/deleteComment/(?P<comment_id>\d+)$',views.deleteComment,name='DeleteComment'),
     url(r'^group/viewAllProject$',views.showAllProject,name="ViewAllProject"),
     url(r'^group/addMember/(?P<group_id>\d+)$', views.addMember, name='AddMember'),
+
 
 ]
 

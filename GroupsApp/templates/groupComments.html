@@ -21,6 +21,9 @@
                         :</strong></td>
 
                     <td style="width: 90%">{{ comment.comment|safe }}</td>
+                    {% if request.user == comment.creator %}
+                    <td> <a href="{%url 'group:DeleteComment' group.id comment.pk %}"> delete comment </a></td>
+                    {% endif %}
                     <!---
                        {% for subcomment in item.subcomment_set.all %}
                             <td> {{ subcomment.comment }}</td>

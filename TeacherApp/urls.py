@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^class/student/(?P<classId>\d+)/remove/(?P<studentId>\d+)', views.removeStudent, name = 'removeStudent'),
     url(r'^class/student/(?P<classId>\d+)/add/', views.addStudent, name = 'addStudent'), 
     url(r'^class/add/', views.addClass, name = 'addClass'), 
+    url(r'^class/delete', views.deleteClass, name = 'deleteClass'), 
     url(r'^class/', views.viewStudents, name = 'viewStudents'), 
  
 ] 

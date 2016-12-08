@@ -137,12 +137,11 @@ def recommendProject(request):
 def getGroup(request):
     if request.user.is_authenticated():
         in_name = request.GET.get('name', 'None')
-<<<<<<< HEAD
-=======
+
         #print(in_name)
         #print(group_name)
         #in_group = models.Group.objects.get(name=group_name)
->>>>>>> victor123
+
         in_group = models.Group.objects.get(name=in_name)
         is_member = in_group.members.filter(email__exact=request.user.email)
 
@@ -399,6 +398,7 @@ def addMember(request, group_id):
             myUser = MyUser.objects.get(email=email)
             if myUser != None and myUser.student:
                 in_group.members.add(myUser)
+                update_group(in_group)
             else:
                 messages.error(request, 'the email is not valid')
              
@@ -443,4 +443,23 @@ def addMember(request, group_id):
 
     else:
         return render(request, 'autherror.html')
+
+
+def deleteComment(request, group_id, comment_id):
+    if request.user.is_authenticated:
+        myGroup = models.Group.objects.get(pk=group_id)
+        myComment = Comment.objects.get(pk=comment_id)
+        myGroup.comments.remove(myComment)
+
+        return redirect(reverse("group:Comments", args=[group_id]))
+    else:
+
+        return render(request, 'autherror.html')
+
+
+
+
+
+
+
 
