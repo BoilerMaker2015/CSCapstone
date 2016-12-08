@@ -159,6 +159,7 @@ def getGroup(request):
 
         context = {
             'group' : in_group,
+            'project_id' : in_group.id,
             'userIsMember': is_member,
             'student_skills_list' : student_skills_list,
             'student_platforms_list' : student_platforms_list,

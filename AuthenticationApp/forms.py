@@ -10,6 +10,7 @@ from tinymce import models as tinymce_models
 
 
 
+
 class LoginForm(forms.Form):
     email = forms.CharField(label='Email')
     password = forms.CharField(label='Password', widget=forms.PasswordInput)
@@ -103,16 +104,16 @@ class UpdateStudentForm(forms.ModelForm):
         ('Senior', 'Senior'),
     )
     #
-    # platform_choice = []
-    # counter = 0
-    # if Platform.objects.all() != None:
-    #     for i in Platform.objects.all():
-    #         choice = (i.platform, i.platform)
-    #         platform_choice.insert(counter, choice)
-    #         counter = counter + 1
+    platform_choice = []
+    counter = 0
+    if Platform.objects.all() != None:
+        for i in Platform.objects.all():
+            choice = (i.platform, i.platform)
+            platform_choice.insert(counter, choice)
+            counter = counter + 1
 
 
-  #  platform = forms.MultipleChoiceField(label="Platform",choices=platform_choice,widget=forms.CheckboxSelectMultiple)
+    platform = forms.MultipleChoiceField(label="Platform",choices=platform_choice,widget=forms.CheckboxSelectMultiple)
 
     #year = forms.CharField(widget=TinyMCE)
 
@@ -129,7 +130,7 @@ class UpdateStudentForm(forms.ModelForm):
     #     choices=year_choice,
     # )
     #platform = forms.ChoiceField(label="Platform",choices=platform_choice,required=False)
-    # platform = forms.MultipleChoiceField(label="Platform",choices=platform_choice,
+    # platform = forms.MultipleChoiceFieled(label="Platform",choices=platform_choice,
     #                                        widget=forms.CheckboxSelectMultiple)
 
     class Meta:
@@ -155,9 +156,9 @@ class UpdateEngineerForm(forms.ModelForm):
     #     ('Engineer', 'Engineer'),)
     #company = forms.CharField(widget=TinyMCE(attrs={'cols': 80, 'rows': 30}))
     #company = forms.CharField(max_length=100)
-    company = forms.CharField(widget=TinyMCE)
+    #company = forms.CharField(widget=TinyMCE)
 
-
+    company = forms.ModelChoiceField(queryset=Company.objects.all())
     #choice = forms.ChoiceField(label="Choice", choices=Company.objects.all())
     #something = forms.CharField(max_length=100)
 

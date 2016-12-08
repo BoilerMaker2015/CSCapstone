@@ -8,6 +8,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.utils import timezone
 from django.contrib import messages
 from AuthenticationApp.models import Platform,Skill,Engineer,MyUser
+from CompaniesApp.models import Company
 
 
 from . import models
@@ -74,11 +75,22 @@ def getProject(request):
         project = Project.objects.get(pk=in_id)
         project_platform_list = project.project_platform.all()
         project_skill_list = project.project_skill.all()
+
+        list_company = []
+        user = project.creator.user
+        for company in Company.objects.all():
+            if user in company.members.all():
+                print(str(company))
+                list_company.append(company)
+
+        c = list_company[0]
         context = {
             'project': project,
             'project_platform_list' : project_platform_list,
             'project_skill_list' : project_skill_list,
+            'company': c,
         }
+
 
     return render(request, 'project.html', context)
 

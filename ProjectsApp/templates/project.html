@@ -20,6 +20,14 @@
                     {{ skill|safe }}
                 {% endfor %}
 
+                <h3>Creator: {{ project.creator.get_full_name }}</h3>
+
+{#                <h3>company: {{company.name }}</h3>#}
+                 <a href="/company?name={{ company.name }}"><h3>{{ company.name }}</h3></a></td>
+                  <h5><i>Description:</i> {{ company.description }}</h5>
+{#                    <a href="{%url 'company:Company' company.name %}">{{ company.name }}</a></td>#}
+                <a href="http://{{ company.website }}" >Company's Website </a>
+
 		</div>
 	</div>
 

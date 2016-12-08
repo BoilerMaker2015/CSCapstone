@@ -15,7 +15,9 @@
             <a href="{% url 'group:Comments' group.id %}" class="btn btn-default">comment</a>
                 <a href="{% url 'group:ViewAllProject' %}" class="btn btn-default">View All Project</a>
             {% if project_applied  %}
-            <h4>applied Project: {{ project_applied }}<h4>
+{#            <h4>applied Project: {{ project_applied }}<h4>#}
+                <h4>Applied Project: </h4><a href="/project?id={{ project_id }}"><h4>{{ project_applied }}</h4></a>
+{#                <td><a href="/project?id={{ project.id }}">{{ project.name }}</a></td>#}
             {% endif %}
 			{% else %}
 			<a href="/group/join?name={{ group.name }}" class="btn btn-default">Join this Group</a>
