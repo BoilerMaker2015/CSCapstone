@@ -8,15 +8,15 @@ from django.core.urlresolvers import reverse_lazy
 
 
 # Create your views here.
-def getComments(request, group_id):
+def getComments(request):
     if request.user.is_authenticated():
         comment_list = Comment.objects.all()   # the problem is we could not find the comments only for that group, so we add a ManytoManyfiled in group, which is comments.
-        myGroup = Group.objects.get(pk=group_id)
-        is_member =myGroup.members.filter(email__exact=request.user.email)
+        #myGroup = Group.objects.get(pk=group_id)
+        #is_member =myGroup.members.filter(email__exact=request.user.email)
         context = {
             'comment' : comment_list,
-            'group': myGroup,
-            'userIsMember': is_member
+            #'group': myGroup,
+            #'userIsMember': is_member
         }
         return render(request,'comments.html',context)   
         #return HttpResponse("Hello, world. You're at the polls index.")

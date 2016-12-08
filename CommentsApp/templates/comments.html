@@ -1,5 +1,5 @@
-{% extends "group.html" %}
-{% block groupContent%}
+{% extends "body.html" %}
+{% block content %}
     <!-- Content -->
     <div class="container" role="main">
         <div class="table-responsive">
@@ -15,7 +15,7 @@
                    <tr>
 
                        <td>{{ item.time }}</td>
-                       <td>{{ item.comment }}</td>
+                       <td>{{ item.comment|safe }}</td>
                        {% for subcomment in item.subcomment_set.all %}
                             <td> {{ subcomment.comment }}</td>
                        {% endfor %}
