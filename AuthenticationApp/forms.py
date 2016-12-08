@@ -103,16 +103,16 @@ class UpdateStudentForm(forms.ModelForm):
         ('Senior', 'Senior'),
     )
 
-    platform_choice = []
-    counter = 0
-    if Platform.objects.all() != None:
-        for i in Platform.objects.all():
-            choice = (i.platform, i.platform)
-            platform_choice.insert(counter, choice)
-            counter = counter + 1
-
-
-    platform = forms.MultipleChoiceField(label="Platform",choices=platform_choice,widget=forms.CheckboxSelectMultiple)
+    # platform_choice = []
+    # counter = 0
+    # if Platform.objects.all() != None:
+    #     for i in Platform.objects.all():
+    #         choice = (i.platform, i.platform)
+    #         platform_choice.insert(counter, choice)
+    #         counter = counter + 1
+    #
+    #
+    # platform = forms.MultipleChoiceField(label="Platform",choices=platform_choice,widget=forms.CheckboxSelectMultiple)
 
     #year = forms.CharField(widget=TinyMCE)
 
@@ -153,7 +153,7 @@ class UpdateEngineerForm(forms.ModelForm):
     #     ('Student', 'Student'),
     #     ('Professor', 'Professor'),
     #     ('Engineer', 'Engineer'),)
-    #company = forms.CharField(widget=TinyMCE(attrs={'cols': 80, 'rows': 30}))
+    company = forms.CharField(widget=TinyMCE(attrs={'cols': 80, 'rows': 30}))
     #company = forms.CharField(max_length=100)
     #company = forms.CharField(widget=TinyMCE)
 
