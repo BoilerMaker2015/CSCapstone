@@ -25,12 +25,13 @@
 					<li><a href="{% url 'auth:Register' %}">Register</a></li>
 				{% else %}
 
+
 					<li><a href="{% url 'auth:UpdateProfile' %}">Update Profile</a></li>
 
-					
+
 					<li role="presentation" class="dropdown">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-						  Groups/Organizations <span class="caret"></span>
+						  Groups/Organizations<span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu">
 							<li><a href="/company/all">Companies</a></li>
@@ -105,3 +106,18 @@
 	{% endblock %}
 
 {% endblock %}
+
+
+
+					<!---
+					<li role="presentation" class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+						  Profile<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<!--<li><a href="{% url 'auth:ViewProfile' %}"">View Profile</a></li>
+							<li><a href="{% url 'auth:UpdateProfile' %}">Update Profile</a></li>
+							
+						</ul>
+					</li>
+ 					-->

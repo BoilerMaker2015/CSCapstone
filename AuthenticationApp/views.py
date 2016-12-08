@@ -228,3 +228,27 @@ def update_profile(request):
         "links": ["logout"],
     }
     return render(request, 'auth_form.html', context)
+
+
+
+@login_required
+def view_profile(request):
+    return render(request, "profile.html")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
