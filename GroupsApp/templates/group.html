@@ -12,6 +12,7 @@
             {% if userIsMember %}
                 <a href="/group/unjoin?name={{ group.name }}" class="btn btn-default">Unjoin this Group</a>
                 <a href="/group/platform?name={{ group.name }}" class="btn btn-default">Strength</a>
+                 <a href="/group/delete?name={{ group.name }}" class="btn btn-default">Delete this Group</a>
                 {#                <a href="/group/skill?name={{ group.name }}" class="btn btn-default">skills</a>#}
                 <a href=" 'group:AddMember' group.pk %}" class="btn btn-default">add member</a >
                 <a href="/group/recommend?id={{ group.id }}" class="btn btn-default">recommend me a Project</a>

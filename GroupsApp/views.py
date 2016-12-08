@@ -360,6 +360,7 @@ def comments(request, group_id):
         return render(request, 'autherror.html')
 
 
+
 # submit a comment
 def addComment(request,group_id):
     if request.user.is_authenticated:
@@ -379,6 +380,22 @@ def addComment(request,group_id):
     else:
 
         return render(request, 'autherror.html')
+
+def deleteGroup(request):
+    if request.user.is_authenticated:
+
+        in_name = request.GET.get('name',None)
+        in_group = models.Group.objects.get(name=in_name)
+        in_group.delete()
+        groups_list = models.Group.objects.all()
+        context = {
+            'groups': groups_list,
+        }
+        messages.success(request,"You have successfully deleted the group")
+        return render(request, 'groups.html', context)
+    else:
+        return render(request, 'autherror.html')
+
 
 
 
